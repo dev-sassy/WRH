@@ -23,6 +23,33 @@ class CategoryServices_model extends CI_Model {
         echo "Welcome to WRH";
     }
 
+    public function addCategory() {
+        $data = array("categoryName" => trim($this->input->post('categoryName')));
+        $query = $this->db->insert('wrh_category', $data);
+    }
+
+    public function editCategory($categoryId) {
+        $query = $this->db->get_where('wrh_category', array("categoryId" => $categoryId));
+
+        if ($query->num_rows() >= 1) {
+            return $query->result_array();
+        }
+    }
+
+    public function updateCategory($categoryId) {
+        $data = array("categoryName" => trim($this->input->post('categoryName')));
+        $this->db->update('wrh_category', $data, array("categoryId" => $categoryId));
+        return $this->db->affected_rows() ? TRUE : FALSE;
+    }
+
+    public function deleteCategory($categoryId) {
+        $this->db->delete('wrh_coupon', array('categoryId' => $categoryId));
+        
+        $data = array('is_deleted' => 1);
+        $this->db->update('wrh_category', $data, array('categoryId' => $categoryId));        
+        return $this->db->affected_rows() ? TRUE : FALSE;
+    }
+
     public function addUniqueId($access_details) {
         $this->db->where("uniqueId", $access_details['uniqueId']);
         $this->db->where("deviceType", $access_details['deviceType']);
@@ -66,30 +93,26 @@ class CategoryServices_model extends CI_Model {
     }
 
     public function validate_access($category_details, $finfo = false) {
-        $this->db->where("uniqueId", $category_details['uniqueId']);
-        $this->db->where("deviceType", $category_details['deviceType']);
+        if (!empty($category_details)) {
 
-        if (!$finfo) {
-            $this->db->where("deviceToken", $category_details['deviceToken']);
-        }
-        $this->db->where("is_deleted", 0);
-        $query = $this->db->get('wrh_access_token_list');
+            $this->db->where("uniqueId", $category_details['uniqueId']);
+            $this->db->where("deviceType", $category_details['deviceType']);
 
-        if ($query->num_rows() > 0) {
-            return true;
-        } else {
-            return false;
+            if (!$finfo) {
+                $this->db->where("deviceToken", $category_details['deviceToken']);
+            }
+            $this->db->where("is_deleted", 0);
+            $query = $this->db->get('wrh_access_token_list');
+
+            if ($query->num_rows() > 0) {
+                return true;
+            }
         }
+        return false;
     }
 
-    public function categoryList($category_details) {
-        if ($this->validate_access($category_details) === FALSE) {
-            $response = array(
-                'data' => $category_details,
-                'status' => 0,
-                'responseMessage' => 'Forbidden access.'
-            );
-        } else {
+    public function categoryList($category_details, $is_admin = FALSE) {
+        if ($this->validate_access($category_details) === TRUE || $is_admin == TRUE) {
             $this->db->select("categoryId, categoryName");
             $query = $this->db->get_where('wrh_category', array('is_deleted' => 0));
 
@@ -108,19 +131,19 @@ class CategoryServices_model extends CI_Model {
                     'responseMessage' => 'Categories are empty.'
                 );
             }
-        }
-
-        return $response;
-    }
-
-    public function categoryDetails($category_details) {
-        if ($this->validate_access($category_details) === FALSE) {
+        } else {
             $response = array(
                 'data' => $category_details,
                 'status' => 0,
                 'responseMessage' => 'Forbidden access.'
             );
-        } else {
+        }
+
+        return $response;
+    }
+
+    public function categoryDetails($category_details, $is_admin = FALSE) {
+        if ($this->validate_access($category_details) === TRUE || $is_admin == TRUE) {
             $this->db->where("categoryId", $category_details['categoryId']);
             $this->db->where("is_deleted", 0);
             $query = $this->db->get('wrh_category');
@@ -140,21 +163,21 @@ class CategoryServices_model extends CI_Model {
                     'responseMessage' => 'Category Id not found.'
                 );
             }
+        } else {
+            $response = array(
+                'data' => $category_details,
+                'status' => 0,
+                'responseMessage' => 'Forbidden access.'
+            );
         }
 
         return $response;
     }
 
-    public function couponList($coupon_details) {
-        if ($this->validate_access($coupon_details) === FALSE) {
-            $response = array(
-                'data' => $coupon_details,
-                'status' => 0,
-                'responseMessage' => 'Forbidden access.'
-            );
-        } else {
-//        date_default_timezone_set('Asia/Kolkata');
-            $limit = 2;
+    public function couponList($coupon_details, $is_admin = FALSE) {
+        if ($this->validate_access($coupon_details) === TRUE || $is_admin == TRUE) {
+            //        date_default_timezone_set('Asia/Kolkata');
+            $limit = 10;
             $catgoryId = $coupon_details['categoryId'];
             $index = $coupon_details['index'] * $limit - $limit;
             $index = $index <= 0 ? 0 : $index;
@@ -197,6 +220,12 @@ class CategoryServices_model extends CI_Model {
                     'responseMessage' => 'Coupons not available for this category.'
                 );
             }
+        } else {
+            $response = array(
+                'data' => $coupon_details,
+                'status' => 0,
+                'responseMessage' => 'Forbidden access.'
+            );
         }
 
         return $response;
@@ -321,7 +350,7 @@ class CategoryServices_model extends CI_Model {
             );
 
             $this->db->update("wrh_saved_coupon", array('is_deleted' => 1), $where);
-            
+
             if ($this->db->affected_rows()) {
                 unset($where['is_deleted']);
                 $this->db->where($where);

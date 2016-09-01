@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'citytipz.db.12030167.hostedresource.com',
-	'username' => 'citytipz',
-	'password' => 'City@16SI',
-	'database' => 'citytipz',
+	'hostname' => 'localhost', //citytipz.db.12030167.hostedresource.com',
+	'username' => 'root', //citytipz',
+	'password' => '', //City@16SI',
+	'database' => 'wrh', //citytipz',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
