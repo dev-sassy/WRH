@@ -4,21 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Coupons extends CI_Controller {
 
-    /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     * 	- or -
-     * 		http://example.com/index.php/welcome/index
-     * 	- or -
-     * Since this controller is set as the default controller in
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     * @see https://codeigniter.com/user_guide/general/urls.html
-     */
     public function __construct() {
         parent:: __construct();
 
@@ -77,6 +62,17 @@ class Coupons extends CI_Controller {
         return $category_options;
     }
 
+    public function getVendorList() {
+        $vendors = $this->couponServices_model->fetchVendors();
+
+        $vendor_options = array();
+        $vendor_options[""] = "-- Select vendor --";
+        foreach ($vendors as $company) {
+            $vendor_options[$company['vendorId']] = $company['vendorName'];
+        }
+        return $vendor_options;
+    }
+
     public function addCoupon() {
         $this->load->helper('form');
 
@@ -84,6 +80,7 @@ class Coupons extends CI_Controller {
             $this->load->library('form_validation');
 
             $this->form_validation->set_rules('categoryId', 'Category name', 'trim|required|numeric');
+            $this->form_validation->set_rules('vendorId', 'Vendor name', 'trim|required|numeric');
             $this->form_validation->set_rules('couponName', 'Coupon name', "trim|required|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]");
             $this->form_validation->set_rules('couponCode', 'Coupon code', 'trim|required|numeric');
             $this->form_validation->set_rules('startDate', 'Start date', 'trim|required|callback_startDate_validation');
@@ -106,8 +103,9 @@ class Coupons extends CI_Controller {
         }
 
         $data['categories'] = $this->getCategoryList();
+        $data['vendors'] = $this->getVendorList();
         $data['title'] = "Add Coupon";
-        $data['js'] = array("coupons");
+        $data['js'] = array("customs/coupons");
         $data['content'] = $this->load->view("coupon/add_coupon", $data, true);
         $this->load->view("default_layout", $data);
     }
@@ -141,7 +139,8 @@ class Coupons extends CI_Controller {
 
         $data['coupon_details'] = $this->couponServices_model->editCoupon($couponId);
         $data['categories'] = $this->getCategoryList();
-        $data['js'] = array("coupons");
+        $data['vendors'] = $this->getVendorList();
+        $data['js'] = array("customs/coupons");
         $data['title'] = "Edit Coupon";
         $data['content'] = $this->load->view("coupon/edit_coupon", $data, true);
         $this->load->view("default_layout", $data);

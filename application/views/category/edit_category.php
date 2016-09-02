@@ -31,7 +31,7 @@
                     $edit_category_btn = array(
                         'name' => 'edit_category',
                         'id' => 'edit_category',
-                        'value' => 'Edit Category',
+                        'value' => 'Update Category',
                         'class' => 'btn btn-primary'
                     );
                     ?>

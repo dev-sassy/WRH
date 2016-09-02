@@ -4,31 +4,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class CouponServices_model extends CI_Model {
 
-    /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     * 	- or -
-     * 		http://example.com/index.php/welcome/index
-     * 	- or -
-     * Since this controller is set as the default controller in
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     * @see https://codeigniter.com/user_guide/general/urls.html
-     */
-    public function index() {
-        echo "Welcome to WRH";
-    }
-
     public function viewAllCoupons() {
+//        $dt = new DateTime('now');
+//        $dt = $dt->format('Y-m-d H:i:s');
+//
+//        $data = array('is_deleted' => 1);
+//        $this->db->where('expiryDate <', $dt);
+//        $this->db->update('wrh_coupon', $data);
+
         return $this->db->get_where('wrh_coupon', array('is_deleted' => 0))->result_array();
     }
 
     public function addCoupon() {
         $categoryId = trim($this->input->post('categoryId'));
+        $vendorId = trim($this->input->post('vendorId'));
         $couponName = trim($this->input->post('couponName'));
         $couponCode = trim($this->input->post('couponCode'));
         $startDate = trim($this->input->post('startDate'));
@@ -37,6 +26,7 @@ class CouponServices_model extends CI_Model {
 
         $data = array(
             "categoryId" => $categoryId,
+            "vendorId" => $vendorId,
             "couponName" => $couponName,
             "couponCode" => $couponCode,
             "startDate" => $startDate,
@@ -45,11 +35,15 @@ class CouponServices_model extends CI_Model {
         );
 
         $this->db->insert('wrh_coupon', $data);
-        return $this->db->affected_rows() > -1 ? TRUE : FALSE;
+        return $this->db->affected_rows() > 0 ? TRUE : FALSE;
     }
 
     public function fetchCategories() {
         return $this->db->get_where('wrh_category', array("is_deleted" => "0"))->result_array();
+    }
+
+    public function fetchVendors() {
+        return $this->db->get_where('wrh_vendor', array("is_deleted" => "0"))->result_array();
     }
 
     public function editCoupon($couponId) {
@@ -62,6 +56,7 @@ class CouponServices_model extends CI_Model {
 
     public function updateCoupon($couponId) {
         $categoryId = trim($this->input->post('categoryId'));
+        $vendorId = trim($this->input->post('vendorId'));
         $couponName = trim($this->input->post('couponName'));
         $couponCode = trim($this->input->post('couponCode'));
         $startDate = trim($this->input->post('startDate'));
@@ -70,6 +65,7 @@ class CouponServices_model extends CI_Model {
 
         $data = array(
             "categoryId" => $categoryId,
+            "vendorId" => $vendorId,
             "couponName" => $couponName,
             "couponCode" => $couponCode,
             "startDate" => $startDate,

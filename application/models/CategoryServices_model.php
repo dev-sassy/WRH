@@ -26,7 +26,7 @@ class CategoryServices_model extends CI_Model {
     public function addCategory() {
         $data = array("categoryName" => trim($this->input->post('categoryName')));
         $this->db->insert('wrh_category', $data);
-        return $this->db->affected_rows() > -1 ? TRUE : FALSE;
+        return $this->db->affected_rows() > 0 ? TRUE : FALSE;
     }
 
     public function editCategory($categoryId) {

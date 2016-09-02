@@ -1,0 +1,16 @@
+
+/* Add coupon and Edit coupon form */
+
+#add_coupon_form #startDate.form-control[readonly], 
+#add_coupon_form #expiryDate.form-control[readonly],
+#edit_coupon_form #startDate.form-control[readonly],
+#edit_coupon_form #expiryDate.form-control[readonly] {
+    cursor: pointer !important;
+    background-color: #fff !important;
+}
+
+/* jQuery date-time-picker */
+.datetimepicker table tr td span.disabled, .datetimepicker table tr td span.disabled:hover,
+.datetimepicker table tr td.disabled, .datetimepicker table tr td.disabled:hover {
+    cursor: not-allowed !important;    
+}

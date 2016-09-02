@@ -17,7 +17,17 @@
                             <?php echo form_label('Category Name :', 'categoryName'); ?>
                             <?php echo form_dropdown('categoryId', $categories, '', $attrib); ?>
                         </div>
-                    </div>                 
+                    </div>
+
+                    <?php
+                    $attrib = array("class" => "form-control", "required" => TRUE, "title" => "Please select atleast one vendor.");
+                    ?>
+                    <div class="form-group clearfix">
+                        <div class="col-md-12">
+                            <?php echo form_label('Vendor Name :', 'vendorName'); ?>
+                            <?php echo form_dropdown('vendorId', $vendors, '', $attrib); ?>
+                        </div>
+                    </div>
 
                     <?php
                     $couponName_field = array(
@@ -41,6 +51,7 @@
                         'name' => 'couponCode',
                         'id' => 'couponCode',
                         'value' => '',
+                        'type' => 'number',
                         'class' => 'form-control',
                         'placeholder' => 'Coupon Code'
                     );
@@ -50,7 +61,7 @@
                             <?php echo form_label('Coupon Code :', 'couponCode'); ?>
                             <?php echo form_input($couponCode_field); ?>
                         </div>
-                    </div>
+                    </div>                   
 
                     <?php
                     $startDate_field = array(
@@ -58,13 +69,15 @@
                         'id' => 'startDate',
                         'value' => '',
                         'class' => 'form-control',
-                        'placeholder' => 'Start Date'
+                        'placeholder' => 'Start Date',
+                        'required' => 'true',
+                        'readonly' => 'true'
                     );
-                    ?>
-                    <div class="form-group clearfix">
+                    ?>                    
+                    <div class="form-group clearfix">                        
                         <div class="col-md-12">
                             <?php echo form_label('Start Date :', 'startDate'); ?>
-                            <?php echo form_input($startDate_field); ?>
+                            <?php echo form_input($startDate_field); ?>                                
                         </div>
                     </div>
 
@@ -74,7 +87,8 @@
                         'id' => 'expiryDate',
                         'value' => '',
                         'class' => 'form-control',
-                        'placeholder' => 'Expiry Date'
+                        'placeholder' => 'Expiry Date',
+                        'readonly' => 'true'
                     );
                     ?>
                     <div class="form-group clearfix">
@@ -89,6 +103,8 @@
                         'name' => 'couponLimit',
                         'id' => 'couponLimit',
                         'value' => '',
+                        'type' => 'number',
+                        'min' => '1',
                         'class' => 'form-control',
                         'placeholder' => 'Coupon Limit'
                     );

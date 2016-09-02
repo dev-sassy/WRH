@@ -1,7 +1,20 @@
 $(document).ready(function () {
 
-    $('#startDate').datetimepicker();
-    $('#expiryDate').datetimepicker();
+    $('#startDate').datetimepicker({
+        autoclose: true,
+        todayBtn: true,
+        startDate: new Date()
+    }).on('changeDate', function (ev) {
+        if ($('#startDate').val() >= $('#expiryDate').val()) {
+            $('#expiryDate').val('');
+        }
+        $('#expiryDate').datetimepicker('setStartDate', $('#startDate').val() ? $('#startDate').val() : new Date());
+    });
+
+    $('#expiryDate').datetimepicker({
+        autoclose: true,
+        startDate: new Date()
+    });
 
     $("#add_coupon_form, #edit_coupon_form").validate({
         rules: {

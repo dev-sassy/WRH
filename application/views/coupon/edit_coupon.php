@@ -18,7 +18,17 @@
                             <?php echo form_label('Category Name :', 'categoryName'); ?>
                             <?php echo form_dropdown('categoryId', $categories, $coupon_details[0]['categoryId'], $attrib); ?>
                         </div>
-                    </div>  
+                    </div>
+
+                    <?php
+                    $attrib = array("class" => "form-control", "required" => TRUE, "title" => "Please select atleast one vendor.");
+                    ?>
+                    <div class="form-group clearfix">
+                        <div class="col-md-12">
+                            <?php echo form_label('Vendor Name :', 'vendorName'); ?>
+                            <?php echo form_dropdown('vendorId', $vendors, $coupon_details[0]['vendorId'], $attrib); ?>
+                        </div>
+                    </div>
 
                     <?php
                     $couponName_field = array(
@@ -61,13 +71,15 @@
                         'id' => 'startDate',
                         'value' => $coupon_details[0]['startDate'],
                         'class' => 'form-control',
-                        'placeholder' => 'Start Date'
+                        'placeholder' => 'Start Date',
+                        'required' => 'true',
+                        'readonly' => 'true'
                     );
-                    ?>
+                    ?>                    
                     <div class="form-group clearfix">
                         <div class="col-md-12">
                             <?php echo form_label('Start Date :', 'startDate'); ?>
-                            <?php echo form_input($startDate_field); ?>
+                            <?php echo form_input($startDate_field); ?>                            
                         </div>
                     </div>
 
@@ -77,7 +89,9 @@
                         'id' => 'expiryDate',
                         'value' => $coupon_details[0]['expiryDate'],
                         'class' => 'form-control',
-                        'placeholder' => 'Expiry Date'
+                        'placeholder' => 'Expiry Date',
+                        'required' => 'true',
+                        'readonly' => 'true'
                     );
                     ?>
                     <div class="form-group clearfix">
@@ -109,7 +123,7 @@
                     $edit_coupon_btn = array(
                         'name' => 'edit_coupon',
                         'id' => 'edit_coupon',
-                        'value' => 'Edit Coupon',
+                        'value' => 'Update Coupon',
                         'class' => 'btn btn-primary'
                     );
                     ?>

@@ -33,6 +33,13 @@
         <ul class="nav nav-pills nav-stacked custom-nav">
             <!--<li><a href="<?php echo base_url() . $this->session->userdata('route_path') . '/success_login'; ?>"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>-->
 
+            <li class="menu-list"><a href=""><i class="fa fa-users"></i> <span>Vendors</span></a>
+                <ul class="sub-menu-list">
+                    <li><a href="<?php echo base_url() . 'vendor/addVendor'; ?>"> Add Vendor</a></li> 
+                    <li><a href="<?php echo base_url() . 'vendor/viewVendors' ?>"> View Vendors</a></li>
+                </ul>
+            </li>
+
             <li class="menu-list"><a href=""><i class="fa fa-exchange"></i> <span> Categories</span></a>
                 <ul class="sub-menu-list">
                     <li><a href="<?php echo base_url() . 'category/addCategory'; ?>"> Add Category</a></li>                    
@@ -40,12 +47,13 @@
                 </ul>
             </li>
 
-            <li class="menu-list"><a href=""><i class="fa fa-credit-card"></i> <span>Coupon</span></a>
+            <li class="menu-list"><a href=""><i class="fa fa-credit-card"></i> <span>Coupons</span></a>
                 <ul class="sub-menu-list">
                     <li><a href="<?php echo base_url() . 'coupons/addCoupon'; ?>"> Add Coupon</a></li> 
                     <li><a href="<?php echo base_url() . 'coupons/viewCoupons' ?>"> View All Coupons</a></li>                    
                 </ul>
             </li>
+
         </ul>
         <!--sidebar nav end-->
 

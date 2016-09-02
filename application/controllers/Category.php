@@ -65,7 +65,7 @@ class Category extends CI_Controller {
             }
         }
 
-        $data['js'] = array("category");
+        $data['js'] = array("customs/category");
         $data['title'] = "Add Category";
         $data['content'] = $this->load->view("category/add_category", $data, true);
         $this->load->view("default_layout", $data);
@@ -94,7 +94,7 @@ class Category extends CI_Controller {
             }
         }
 
-        $data['js'] = array("category");
+        $data['js'] = array("customs/category");
         $data['cat_details'] = $this->categoryServices_model->editCategory($categoryId);
         $data['title'] = "Edit Category";
         $data['content'] = $this->load->view("category/edit_category", $data, true);
