@@ -7,27 +7,18 @@
             <div class="panel-body">
                 <div class="col-md-6">
                     <?php
-                    echo $this->session->flashdata('error_message');
-
                     $attributes = array('id' => 'edit_coupon_form', 'role' => 'form', 'class' => 'cmxform form-horizontal adminex-form');
                     $hidden_coupon_id = array('couponId' => $coupon_details[0]['couponId']);
                     echo form_open('coupons/editCoupon/' . $coupon_details[0]['couponId'], $attributes, $hidden_coupon_id);
 
-                    $categoryId_field = array(
-                        'name' => 'categoryId',
-                        'id' => 'categoryId',
-                        'value' => $coupon_details[0]['categoryId'],
-                        'maxlength' => '50',
-                        'class' => 'form-control',
-                        'placeholder' => 'Category Id'
-                    );
+                    $attrib = array("class" => "form-control", "required" => TRUE, "title" => "Please select atleast one category.");
                     ?>
                     <div class="form-group clearfix">
                         <div class="col-md-12">
-                            <?php echo form_label('Category Id :', 'categoryId'); ?>
-                            <?php echo form_input($categoryId_field); ?>
+                            <?php echo form_label('Category Name :', 'categoryName'); ?>
+                            <?php echo form_dropdown('categoryId', $categories, $coupon_details[0]['categoryId'], $attrib); ?>
                         </div>
-                    </div>                   
+                    </div>  
 
                     <?php
                     $couponName_field = array(
@@ -50,6 +41,8 @@
                     $couponCode_field = array(
                         'name' => 'couponCode',
                         'id' => 'couponCode',
+                        'type' => 'number',
+                        'min' => '1',
                         'value' => $coupon_details[0]['couponCode'],
                         'class' => 'form-control',
                         'placeholder' => 'Coupon Code'
@@ -98,6 +91,8 @@
                     $couponLimit_field = array(
                         'name' => 'couponLimit',
                         'id' => 'couponLimit',
+                        'type' => 'number',
+                        'min' => '1',
                         'value' => $coupon_details[0]['couponLimit'],
                         'class' => 'form-control',
                         'placeholder' => 'Coupon Limit'

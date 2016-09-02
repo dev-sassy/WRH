@@ -34,7 +34,6 @@
                                     Coupon Limit
                                 </td>
                                 <td></td>
-                                <td></td>
                             </tr>
                         </thead>
                         <?php
@@ -66,8 +65,7 @@
                                             <a href="<?php echo base_url() . 'coupons/editCoupon/' . $item['couponId']; ?>">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
                                             </a>
-                                        </td>
-                                        <td>
+                                            &nbsp;&nbsp;&nbsp;
                                             <a href="<?php echo base_url() . 'coupons/deleteCoupon/' . $item['couponId']; ?>" onclick="return confirm('Are you sure?');">
                                                 <i class="fa fa-times" aria-hidden="true" title="Delete"></i>
                                             </a>

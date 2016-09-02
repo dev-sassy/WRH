@@ -21,6 +21,10 @@ class Category extends CI_Controller {
      */
     public function __construct() {
         parent:: __construct();
+
+        if ($this->session->userdata('USERNAME') === NULL || $this->session->userdata('USERNAME') === '') {
+            redirect(base_url(), 'refresh');
+        }
         $this->load->model('categoryServices_model');
     }
 
@@ -44,17 +48,24 @@ class Category extends CI_Controller {
         if ($this->input->post('add_category')) {
             $this->load->library('form_validation');
 
-            $this->form_validation->set_rules('categoryName', 'Category name', 'trim|required|min_length[2]|max_length[50]');
+            $this->form_validation->set_rules('categoryName', 'Category name', "trim|required|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]");
 
             if ($this->form_validation->run() === TRUE) {
-                $this->categoryServices_model->addCategory();
-                redirect(base_url() . 'category/viewCategories');
+                $flag = $this->categoryServices_model->addCategory();
+                if ($flag) {
+                    $this->session->set_flashdata('success_message', 'Category added successfully.');
+                    redirect(base_url() . 'category/viewCategories', 'refresh');
+                } else {
+                    $this->session->set_flashdata('error_message', 'Please try again.');
+                    redirect(base_url() . 'category/addCategory', 'refresh');
+                }
             } else {
                 $this->session->set_flashdata('error_message', validation_errors());
                 redirect(base_url() . 'category/addCategory', 'refresh');
             }
         }
 
+        $data['js'] = array("category");
         $data['title'] = "Add Category";
         $data['content'] = $this->load->view("category/add_category", $data, true);
         $this->load->view("default_layout", $data);
@@ -66,14 +77,16 @@ class Category extends CI_Controller {
         if ($this->input->post('edit_category')) {
             $this->load->library('form_validation');
 
-            $this->form_validation->set_rules('categoryName', 'Category name', 'trim|required|min_length[2]|max_length[50]');
+            $this->form_validation->set_rules('categoryName', 'Category name', "trim|required|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]");
 
             if ($this->form_validation->run() === TRUE) {
                 $flag = $this->categoryServices_model->updateCategory($this->input->post('categoryId'));
                 if ($flag) {
-                    redirect(base_url() . 'category/viewCategories');
+                    $this->session->set_flashdata('success_message', 'Category updated successfully.');
+                    redirect(base_url() . 'category/viewCategories', 'refresh');
                 } else {
-                    redirect(base_url() . 'category');
+                    $this->session->set_flashdata('error_message', 'Please try again.');
+                    redirect(base_url() . 'category/editCategory/' . $categoryId, 'refresh');
                 }
             } else {
                 $this->session->set_flashdata('error_message', validation_errors());
@@ -81,6 +94,7 @@ class Category extends CI_Controller {
             }
         }
 
+        $data['js'] = array("category");
         $data['cat_details'] = $this->categoryServices_model->editCategory($categoryId);
         $data['title'] = "Edit Category";
         $data['content'] = $this->load->view("category/edit_category", $data, true);
@@ -90,8 +104,10 @@ class Category extends CI_Controller {
     public function deleteCategory($categoryId) {
         $flag = $this->categoryServices_model->deleteCategory($categoryId);
         if ($flag) {
+            $this->session->set_flashdata('success_message', 'Category deleted successfully.');
             redirect(base_url() . 'category/viewCategories');
         } else {
+            $this->session->set_flashdata('error_message', 'Please try again.');
             redirect(base_url() . 'category');
         }
     }

@@ -25,7 +25,8 @@ class CategoryServices_model extends CI_Model {
 
     public function addCategory() {
         $data = array("categoryName" => trim($this->input->post('categoryName')));
-        $query = $this->db->insert('wrh_category', $data);
+        $this->db->insert('wrh_category', $data);
+        return $this->db->affected_rows() > -1 ? TRUE : FALSE;
     }
 
     public function editCategory($categoryId) {
@@ -39,15 +40,15 @@ class CategoryServices_model extends CI_Model {
     public function updateCategory($categoryId) {
         $data = array("categoryName" => trim($this->input->post('categoryName')));
         $this->db->update('wrh_category', $data, array("categoryId" => $categoryId));
-        return $this->db->affected_rows() ? TRUE : FALSE;
-    }
+        return $this->db->affected_rows() > -1 ? TRUE : FALSE;
+    }    
 
     public function deleteCategory($categoryId) {
         $this->db->delete('wrh_coupon', array('categoryId' => $categoryId));
         
         $data = array('is_deleted' => 1);
         $this->db->update('wrh_category', $data, array('categoryId' => $categoryId));        
-        return $this->db->affected_rows() ? TRUE : FALSE;
+        return $this->db->affected_rows() > -1 ? TRUE : FALSE;
     }
 
     public function addUniqueId($access_details) {
@@ -75,7 +76,7 @@ class CategoryServices_model extends CI_Model {
 
         $this->db->insert('wrh_access_token_list', $access_details);
 
-        if ($this->db->affected_rows()) {
+        if ($this->db->affected_rows() > -1) {
             $response = array(
                 'data' => $access_details,
                 'status' => 1,
@@ -351,7 +352,7 @@ class CategoryServices_model extends CI_Model {
 
             $this->db->update("wrh_saved_coupon", array('is_deleted' => 1), $where);
 
-            if ($this->db->affected_rows()) {
+            if ($this->db->affected_rows() > -1) {
                 unset($where['is_deleted']);
                 $this->db->where($where);
                 $this->db->where('is_deleted', 1);

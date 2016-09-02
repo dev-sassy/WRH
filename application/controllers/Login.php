@@ -21,13 +21,13 @@ class Login extends CI_Controller {
      */
     public function __construct() {
         parent:: __construct();
-        $this->load->model('login_model');
     }
 
     public function index() {
         if ($this->session->userdata('USERNAME') !== NULL && $this->session->userdata('USERNAME') !== '') {
             redirect(base_url() . 'category', 'refresh');
         }
+        $this->load->model('login_model');
 
         $check_login["status"] = '';
 

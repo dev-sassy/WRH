@@ -7,8 +7,6 @@
             <div class="panel-body">
                 <div class="col-md-6">
                     <?php
-                    echo $this->session->flashdata('error_message');
-
                     $attributes = array('id' => 'add_category_form', 'role' => 'form', 'class' => 'cmxform form-horizontal adminex-form');
                     echo form_open('category/addCategory', $attributes);
 

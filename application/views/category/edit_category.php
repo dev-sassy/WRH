@@ -7,8 +7,6 @@
             <div class="panel-body">
                 <div class="col-md-6">
                     <?php
-                    echo $this->session->flashdata('error_message');
-
                     $attributes = array('id' => 'edit_category_form', 'role' => 'form', 'class' => 'cmxform form-horizontal adminex-form');
                     $hidden_category_id = array('categoryId' => $cat_details[0]['categoryId']);
                     echo form_open('category/editCategory/' . $cat_details[0]['categoryId'], $attributes, $hidden_category_id);

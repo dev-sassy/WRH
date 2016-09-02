@@ -7,26 +7,17 @@
             <div class="panel-body">
                 <div class="col-md-6">
                     <?php
-                    echo $this->session->flashdata('error_message');
-
                     $attributes = array('id' => 'add_coupon_form', 'role' => 'form', 'class' => 'cmxform form-horizontal adminex-form');
                     echo form_open('coupons/addCoupon', $attributes);
 
-                    $categoryId_field = array(
-                        'name' => 'categoryId',
-                        'id' => 'categoryId',
-                        'value' => '',
-                        'maxlength' => '50',
-                        'class' => 'form-control',
-                        'placeholder' => 'Category Id'
-                    );
+                    $attrib = array("class" => "form-control", "required" => TRUE, "title" => "Please select atleast one category.");
                     ?>
                     <div class="form-group clearfix">
                         <div class="col-md-12">
-                            <?php echo form_label('Category Id :', 'categoryId'); ?>
-                            <?php echo form_input($categoryId_field); ?>
+                            <?php echo form_label('Category Name :', 'categoryName'); ?>
+                            <?php echo form_dropdown('categoryId', $categories, '', $attrib); ?>
                         </div>
-                    </div>                   
+                    </div>                 
 
                     <?php
                     $couponName_field = array(

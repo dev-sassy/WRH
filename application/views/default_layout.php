@@ -33,6 +33,19 @@
                                                     </ul>-->
                 </div>
                 <!-- page heading end-->
+
+                <?php if ($this->session->flashdata('success_message') !== NULL) { ?>
+                    <div class="alert alert-success" id="alert_success">
+                        <?php echo '<h6>' . $this->session->flashdata('success_message') . '</h6>'; ?>
+                    </div>
+                <?php } ?>
+
+                <?php if ($this->session->flashdata('error_message') !== NULL) { ?>
+                    <div class="alert alert-danger" id="alert-error">
+                        <?php echo '<h6>' . $this->session->flashdata('error_message') . '</h6>'; ?>
+                    </div>
+                <?php } ?>
+
                 <!--body wrapper start-->
                 <div class="wrapper">
                     <?php echo $content; ?>

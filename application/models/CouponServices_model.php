@@ -44,8 +44,12 @@ class CouponServices_model extends CI_Model {
             "couponLimit" => $couponLimit
         );
 
-        $query = $this->db->insert('wrh_coupon', $data);
-        return $query->affected_rows() ? TRUE : FALSE;
+        $this->db->insert('wrh_coupon', $data);
+        return $this->db->affected_rows() > -1 ? TRUE : FALSE;
+    }
+
+    public function fetchCategories() {
+        return $this->db->get_where('wrh_category', array("is_deleted" => "0"))->result_array();
     }
 
     public function editCoupon($couponId) {
@@ -73,13 +77,13 @@ class CouponServices_model extends CI_Model {
             "couponLimit" => $couponLimit
         );
         $this->db->update('wrh_coupon', $data, array("couponId" => $couponId));
-        return $this->db->affected_rows() ? TRUE : FALSE;
+        return $this->db->affected_rows() > -1 ? TRUE : FALSE;
     }
 
     public function deleteCoupon($couponId) {
         $data = array('is_deleted' => 1);
         $this->db->update('wrh_coupon', $data, array('couponId' => $couponId));
-        return $this->db->affected_rows() ? TRUE : FALSE;
+        return $this->db->affected_rows() > -1 ? TRUE : FALSE;
     }
 
 }

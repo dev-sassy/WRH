@@ -20,8 +20,7 @@
                                 </td>
                                 <td>
                                     Category Name
-                                </td>                                
-                                <td></td>
+                                </td>    
                                 <td></td>
                             </tr>
                         </thead>
@@ -42,8 +41,7 @@
                                             <a href="<?php echo base_url() . 'category/editCategory/' . $item['categoryId']; ?>">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
                                             </a>
-                                        </td>
-                                        <td>
+                                            &nbsp;&nbsp;&nbsp;
                                             <a href="<?php echo base_url() . 'category/deleteCategory/' . $item['categoryId']; ?>" onclick="return confirm('Are you sure?');">
                                                 <i class="fa fa-times" aria-hidden="true" title="Delete"></i>
                                             </a>

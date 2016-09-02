@@ -1,7 +1,53 @@
 $(document).ready(function () {
 
-    $("#startDate").datetimepicker();
+    $('#startDate').datetimepicker();
+    $('#expiryDate').datetimepicker();
 
-    $("#expiryDate").datetimepicker();
+    $("#add_coupon_form, #edit_coupon_form").validate({
+        rules: {
+            couponName: {
+                minlength: 2,
+                maxlength: 50,
+                required: true,
+                pattern: "^[a-zA-Z' ]+$"
+            },
+            couponCode: {
+                required: true,
+                pattern: '^[0-9]+$'
+            },
+            startDate: {
+                required: true
+            },
+            expiryDate: {
+                required: true
+            },
+            couponLimit: {
+                required: true,
+                pattern: '^[0-9]+$'
+            }
+        },
+        messages: {
+            couponName: {
+                required: "Please enter the coupon name.",
+                minlength: "Coupon name must be atleast 2 chars long!",
+                maxlength: "Coupon name must not be exceed 50 characters!",
+                pattern: 'Only alphabate, space and single quote is allowed.'
+            },
+            couponCode: {
+                required: "Please enter the coupon code.",
+                pattern: "Only digit is allowewd!"
+            },
+            startDate: {
+                required: "Please enter the start date-time.",
+            },
+            expiryDate: {
+                required: "Please enter the expiry date-time.",
+            },
+            couponLimit: {
+                required: "Please enter the coupon limit.",
+                pattern: "Only digit is allowed!"
+            }
+        }
+    });
 
 });
