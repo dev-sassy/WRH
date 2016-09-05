@@ -9,7 +9,7 @@
                     <?php
                     $attributes = array('id' => 'edit_coupon_form', 'role' => 'form', 'class' => 'cmxform form-horizontal adminex-form');
                     $hidden_coupon_id = array('couponId' => $coupon_details[0]['couponId']);
-                    echo form_open('coupons/editCoupon/' . $coupon_details[0]['couponId'], $attributes, $hidden_coupon_id);
+                    echo form_open_multipart('coupons/editCoupon/' . $coupon_details[0]['couponId'], $attributes, $hidden_coupon_id);
 
                     $attrib = array("class" => "form-control", "required" => TRUE, "title" => "Please select atleast one category.");
                     ?>
@@ -44,6 +44,38 @@
                         <div class="col-md-12">
                             <?php echo form_label('Coupon Name :', 'couponName'); ?>
                             <?php echo form_input($couponName_field); ?>
+                        </div>
+                    </div>
+                    
+                    <?php
+                    $couponImage_field = array(
+                        'name' => 'couponImage',
+                        'id' => 'couponImage',
+                        'value' => '',
+                        'accept' => 'image/*',
+                        'class' => 'default',
+                        'placeholder' => 'Coupon Image'
+                    );
+                    ?>
+
+                    <div class="form-group clearfix">
+                        <div class="col-md-12">
+                            <?php echo form_label('Coupon Image :', 'couponImage'); ?>
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                <input type="hidden" value="" name="" />
+                                <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                                    <img src="<?php echo base_url(); ?>assets/images/no-image.png" alt="No image">
+                                </div>
+                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 10px;"></div>
+                                <div>
+                                    <span class="btn btn-default btn-file">
+                                        <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
+                                        <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                        <?php echo form_upload($couponImage_field); ?>
+                                    </span>
+                                    <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash"></i> Remove</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

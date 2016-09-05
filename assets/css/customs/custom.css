@@ -14,3 +14,7 @@
 .datetimepicker table tr td.disabled, .datetimepicker table tr td.disabled:hover {
     cursor: not-allowed !important;    
 }
+
+.fileupload .btn {
+    margin-left: 0 !important;
+}

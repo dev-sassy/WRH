@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Vendor extends CI_Controller {
 
+    public $upload_data = array();
+
     public function __construct() {
         parent:: __construct();
 
@@ -26,6 +28,31 @@ class Vendor extends CI_Controller {
         $this->load->view("default_layout", $data);
     }
 
+    function validate_image() {
+        if ($_FILES && $_FILES['vendorImage']['size'] !== 0) {
+            $upload_dir = './images/vendor';
+            if (!is_dir($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+            $config['upload_path'] = $upload_dir;
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['file_name'] = $_FILES['vendorImage']['name'];
+            $config['overwrite'] = FALSE;
+            $config['max_size'] = 1024;
+
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('vendorImage')) {
+                $this->form_validation->set_message('validate_image', 'File size should be <= 1 MB.');
+                return FALSE;
+            } else {
+                $this->upload_data = $this->upload->data();
+                return TRUE;
+            }
+        } else {
+            return TRUE;
+        }
+    }
+
     public function addVendor() {
         $this->load->helper('form');
 
@@ -33,9 +60,10 @@ class Vendor extends CI_Controller {
             $this->load->library('form_validation');
 
             $this->form_validation->set_rules('vendorName', 'Vendor name', "trim|required|min_length[2]|max_length[150]|regex_match[/^[a-zA-Z' ]+$/]");
+            $this->form_validation->set_rules('vendorImage', 'Vendor image', "callback_validate_image");
 
             if ($this->form_validation->run() === TRUE) {
-                $flag = $this->vendorServices_model->addVendor();
+                $flag = $this->vendorServices_model->addVendor($this->upload_data);
                 if ($flag) {
                     $this->session->set_flashdata('success_message', 'Vendor added successfully.');
                     redirect(base_url() . 'vendor/viewVendors', 'refresh');
@@ -62,9 +90,10 @@ class Vendor extends CI_Controller {
             $this->load->library('form_validation');
 
             $this->form_validation->set_rules('vendorName', 'Vendor name', "trim|required|min_length[2]|max_length[150]|regex_match[/^[a-zA-Z' ]+$/]");
+            $this->form_validation->set_rules('vendorImage', 'Vendor image', "callback_validate_image");
 
             if ($this->form_validation->run() === TRUE) {
-                $flag = $this->vendorServices_model->updateVendor($this->input->post('vendorId'));
+                $flag = $this->vendorServices_model->updateVendor($this->input->post('vendorId'), $this->upload_data);
                 if ($flag) {
                     $this->session->set_flashdata('success_message', 'Vendor updated successfully.');
                     redirect(base_url() . 'vendor/viewVendors', 'refresh');
@@ -78,8 +107,11 @@ class Vendor extends CI_Controller {
             }
         }
 
-        $data['js'] = array("customs/vendor");
         $data['vendor_details'] = $this->vendorServices_model->editVendor($vendorId);
+        if (!$data['vendor_details']) {
+            redirect(base_url() . 'vendor', 'refresh');
+        }
+        $data['js'] = array("customs/vendor");
         $data['title'] = "Update Vendor";
         $data['content'] = $this->load->view("vendor/edit_vendor", $data, true);
         $this->load->view("default_layout", $data);

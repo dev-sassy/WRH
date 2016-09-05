@@ -17,7 +17,10 @@
                             <tr>
                                 <td>
                                     Sr No.
-                                </td>                                
+                                </td>
+                                <td>
+                                    Coupon Image
+                                </td>
                                 <td>
                                     Coupon Name
                                 </td>
@@ -45,7 +48,10 @@
                                 foreach ($coupons as $item) {
                                     ?>
                                     <tr>
-                                        <td width="3"><?php echo $i++; ?></td>                                        
+                                        <td width="3"><?php echo $i++; ?></td>
+                                        <td>
+                                            <?php echo '<img src="' . $item['couponImage'] . '" height="100" width="100" alt="Image not available." />'; ?>
+                                        </td>
                                         <td>
                                             <?php echo $item['couponName']; ?>
                                         </td>

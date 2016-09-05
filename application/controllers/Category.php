@@ -4,21 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Category extends CI_Controller {
 
-    /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     * 	- or -
-     * 		http://example.com/index.php/welcome/index
-     * 	- or -
-     * Since this controller is set as the default controller in
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     * @see https://codeigniter.com/user_guide/general/urls.html
-     */
+    public $upload_data = array();
+
     public function __construct() {
         parent:: __construct();
 
@@ -42,6 +29,31 @@ class Category extends CI_Controller {
         $this->load->view("default_layout", $data);
     }
 
+    function validate_image() {
+        if ($_FILES && $_FILES['categoryImage']['size'] !== 0) {
+            $upload_dir = './images/category';
+            if (!is_dir($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+            $config['upload_path'] = $upload_dir;
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['file_name'] = $_FILES['categoryImage']['name'];
+            $config['overwrite'] = FALSE;
+            $config['max_size'] = 1024;
+
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('categoryImage')) {
+                $this->form_validation->set_message('validate_image', "File should be <= 1 MB.");
+                return FALSE;
+            } else {
+                $this->upload_data = $this->upload->data();
+                return TRUE;
+            }
+        } else {
+            return TRUE;
+        }
+    }
+
     public function addCategory() {
         $this->load->helper('form');
 
@@ -49,9 +61,10 @@ class Category extends CI_Controller {
             $this->load->library('form_validation');
 
             $this->form_validation->set_rules('categoryName', 'Category name', "trim|required|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]");
+            $this->form_validation->set_rules('categoryImage', 'Category image', "callback_validate_image");
 
             if ($this->form_validation->run() === TRUE) {
-                $flag = $this->categoryServices_model->addCategory();
+                $flag = $this->categoryServices_model->addCategory($this->upload_data);
                 if ($flag) {
                     $this->session->set_flashdata('success_message', 'Category added successfully.');
                     redirect(base_url() . 'category/viewCategories', 'refresh');
@@ -78,9 +91,10 @@ class Category extends CI_Controller {
             $this->load->library('form_validation');
 
             $this->form_validation->set_rules('categoryName', 'Category name', "trim|required|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]");
+            $this->form_validation->set_rules('categoryImage', 'Categoryimage', "callback_validate_image");
 
             if ($this->form_validation->run() === TRUE) {
-                $flag = $this->categoryServices_model->updateCategory($this->input->post('categoryId'));
+                $flag = $this->categoryServices_model->updateCategory($this->input->post('categoryId'), $this->upload_data);
                 if ($flag) {
                     $this->session->set_flashdata('success_message', 'Category updated successfully.');
                     redirect(base_url() . 'category/viewCategories', 'refresh');
@@ -94,8 +108,11 @@ class Category extends CI_Controller {
             }
         }
 
-        $data['js'] = array("customs/category");
         $data['cat_details'] = $this->categoryServices_model->editCategory($categoryId);
+        if (!$data['cat_details']) {
+            redirect(base_url() . 'category', 'refresh');
+        }
+        $data['js'] = array("customs/category");
         $data['title'] = "Edit Category";
         $data['content'] = $this->load->view("category/edit_category", $data, true);
         $this->load->view("default_layout", $data);

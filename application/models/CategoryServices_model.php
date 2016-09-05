@@ -4,27 +4,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class CategoryServices_model extends CI_Model {
 
-    /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     * 	- or -
-     * 		http://example.com/index.php/welcome/index
-     * 	- or -
-     * Since this controller is set as the default controller in
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     * @see https://codeigniter.com/user_guide/general/urls.html
-     */
-    public function index() {
-        echo "Welcome to WRH";
+    public function getImageSource($categoryImage) {
+        $imageData = file_get_contents($categoryImage['path']);
+        $base64Image = base64_encode($imageData);
+        $src = 'data:' . $categoryImage['file_type'] . ';base64,' . $base64Image;
+        return $src;
     }
 
-    public function addCategory() {
-        $data = array("categoryName" => trim($this->input->post('categoryName')));
+    public function addCategory($categoryImage) {
+        if (!$categoryImage || $categoryImage['file_size'] === 0 || !$categoryImage['is_image']) {
+            $categoryImage["path"] = base_url() . "assets/images/no-image.png";
+            $categoryImage['file_type'] = "image/png";
+        } else {
+            $categoryImage["path"] = base_url() . "images/category/" . $categoryImage['file_name'];
+        }
+
+        $src = $this->getImageSource($categoryImage);
+
+        $data = array(
+            "categoryName" => trim($this->input->post('categoryName')),
+            "categoryImage" => $src
+        );
         $this->db->insert('wrh_category', $data);
         return $this->db->affected_rows() > 0 ? TRUE : FALSE;
     }
@@ -37,18 +37,31 @@ class CategoryServices_model extends CI_Model {
         }
     }
 
-    public function updateCategory($categoryId) {
-        $data = array("categoryName" => trim($this->input->post('categoryName')));
+    public function updateCategory($categoryId, $categoryImage) {
+        if (!$categoryImage || $categoryImage['file_size'] === 0 || !$categoryImage['is_image']) {
+            $categoryImage["path"] = base_url() . "assets/images/no-image.png";
+            $categoryImage['file_type'] = "image/png";
+        } else {
+            $categoryImage["path"] = base_url() . "images/category/" . $categoryImage['file_name'];
+        }
+
+        $src = $this->getImageSource($categoryImage);
+
+        $data = array(
+            "categoryName" => trim($this->input->post('categoryName')),
+            "categoryImage" => $src
+        );
         $this->db->update('wrh_category', $data, array("categoryId" => $categoryId));
         return $this->db->affected_rows() > -1 ? TRUE : FALSE;
-    }    
+    }
 
     public function deleteCategory($categoryId) {
-        $this->db->delete('wrh_coupon', array('categoryId' => $categoryId));
-        
+        $this->db->delete('wrh_coupon', array('categoryId' => $categoryId));        
+
         $data = array('is_deleted' => 1);
-        $this->db->update('wrh_category', $data, array('categoryId' => $categoryId));        
-        return $this->db->affected_rows() > -1 ? TRUE : FALSE;
+        $this->db->update('wrh_category', $data, array('categoryId' => $categoryId));
+        
+        return $this->db->affected_rows() > 0 ? TRUE : FALSE;
     }
 
     public function addUniqueId($access_details) {
@@ -114,7 +127,7 @@ class CategoryServices_model extends CI_Model {
 
     public function categoryList($category_details, $is_admin = FALSE) {
         if ($this->validate_access($category_details) === TRUE || $is_admin == TRUE) {
-            $this->db->select("categoryId, categoryName");
+            $this->db->select("categoryId, categoryName, categoryImage");
             $query = $this->db->get_where('wrh_category', array('is_deleted' => 0));
 
             if ($query->num_rows() > 0) {

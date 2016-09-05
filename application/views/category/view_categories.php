@@ -21,6 +21,9 @@
                                 <td>
                                     Category Name
                                 </td>    
+                                <td>
+                                    Category Image
+                                </td>
                                 <td></td>
                             </tr>
                         </thead>
@@ -37,6 +40,9 @@
                                         <td>
                                             <?php echo $item['categoryName']; ?>
                                         </td>                                        
+                                        <td>
+                                            <?php echo '<img src="' . $item['categoryImage'] . '" height="100" width="100" alt="Image not available." />'; ?>
+                                        </td>
                                         <td>
                                             <a href="<?php echo base_url() . 'category/editCategory/' . $item['categoryId']; ?>">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>

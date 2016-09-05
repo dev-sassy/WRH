@@ -24,6 +24,9 @@
                                 <td>
                                     Created on
                                 </td>                                
+                                <td>
+                                    Vendor Image
+                                </td>
                                 <td></td>
                             </tr>
                         </thead>
@@ -42,7 +45,10 @@
                                         </td>
                                         <td>
                                             <?php echo $company['createdOn']; ?>
-                                        </td>                                        
+                                        </td>
+                                        <td>
+                                            <?php echo '<img src="' . $company['vendorImage'] . '" height="100" width="100" alt="Image not available." />'; ?>
+                                        </td>
                                         <td>
                                             <a href="<?php echo base_url() . 'vendor/editVendor/' . $company['vendorId']; ?>">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
