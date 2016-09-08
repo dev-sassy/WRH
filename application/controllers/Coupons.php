@@ -4,20 +4,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Coupons extends CI_Controller {
 
-    public $upload_data = array();
+    public $upload_data = array(); // To store uploaded image data/info.
+
+    /*
+     * __construct() --> Default constructor.
+     */
 
     public function __construct() {
         parent:: __construct();
 
+        // Check for session if user logged-in.
         if ($this->session->userdata('USERNAME') === NULL || $this->session->userdata('USERNAME') === '') {
             redirect(base_url(), 'refresh');
         }
         $this->load->model('couponServices_model');
     }
 
+    /*
+     * index() --> Default function whenever the controller is called.
+     */
+
     public function index() {
         $this->viewCoupons();
     }
+
+    /*
+     * viewCoupons() --> View coupons page is loaded.
+     */
 
     public function viewCoupons() {
         $data['coupons'] = $this->couponServices_model->viewAllCoupons(array(), true);
@@ -27,6 +40,12 @@ class Coupons extends CI_Controller {
         $data['content'] = $this->load->view("coupon/view_coupons", $data, true);
         $this->load->view("default_layout", $data);
     }
+
+    /*
+     * startDate_validation() --> Validate start date-time, must be greater than now.
+     * @param: param1 datetime
+     * @retrun: bool true/false
+     */
 
     public function startDate_validation($str) {
         $dt = new DateTime('now');
@@ -39,6 +58,12 @@ class Coupons extends CI_Controller {
         return TRUE;
     }
 
+    /*
+     * expiryDate_validation() --> Validate expiry date-time, must be greater than now and start date-time.
+     * @param: param1 datetime
+     * @retrun: bool true/false
+     */
+
     public function expiryDate_validation($str) {
         $dt = new DateTime('now');
         $dt = $dt->format('Y-m-d H:i:s');
@@ -47,11 +72,16 @@ class Coupons extends CI_Controller {
         $expriry = strtotime($this->input->post('expiryDate'));
 
         if ($start > $expriry) {
-            $this->form_validation->set_message('expiryDate_validation', 'Your start date-time must be earlier than your expiry date-time');
+            $this->form_validation->set_message('expiryDate_validation', 'Your start date-time must be earlier than your expiry date-time.');
             return FALSE;
         }
         return TRUE;
     }
+
+    /*
+     * getCategoryList() --> Fetch all categories, to display in category drop-down.     
+     * @retrun: array(key, value) -> (category id, category name)
+     */
 
     public function getCategoryList() {
         $categories = $this->couponServices_model->fetchCategories();
@@ -64,6 +94,11 @@ class Coupons extends CI_Controller {
         return $category_options;
     }
 
+    /*
+     * getVendorList() --> Fetch all vendors, to display in vendor drop-down.     
+     * @retrun: array(key, value) -> (vendor id, vendor name)
+     */
+
     public function getVendorList() {
         $vendors = $this->couponServices_model->fetchVendors();
 
@@ -75,17 +110,23 @@ class Coupons extends CI_Controller {
         return $vendor_options;
     }
 
+    /*
+     * validate_image() --> Upload image & validate if it's an image file & <= 1MB.
+     * @return: bool true/false
+     */
+
     function validate_image() {
         if ($_FILES && $_FILES['couponImage']['size'] !== 0) {
             $upload_dir = './images/coupon';
-            if (!is_dir($upload_dir)) {
+
+            if (!is_dir($upload_dir)) { // Create directory if not exists.
                 mkdir($upload_dir, 0777, true);
             }
             $config['upload_path'] = $upload_dir;
             $config['allowed_types'] = 'gif|jpg|png|jpeg';
             $config['file_name'] = $_FILES['couponImage']['name'];
             $config['overwrite'] = FALSE;
-            $config['max_size'] = 1024;
+            $config['max_size'] = 1024; // Default to 1MB.
 
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('couponImage')) {
@@ -99,6 +140,10 @@ class Coupons extends CI_Controller {
             return TRUE;
         }
     }
+
+    /*
+     * addCoupon() --> Load add coupon page. (Coupons > Add Coupon)
+     */
 
     public function addCoupon() {
         $this->load->helper('form');
@@ -138,12 +183,18 @@ class Coupons extends CI_Controller {
         $this->load->view("default_layout", $data);
     }
 
+    /*
+     * editCoupon() --> Load add coupon page from coupons view page.
+     * @param: param1 int --> coupon id.
+     */
+
     public function editCoupon($couponId) {
         $this->load->helper('form');
 
         if ($this->input->post('edit_coupon')) {
             $this->load->library('form_validation');
 
+            // Validate the value against permissible rules.
             $this->form_validation->set_rules('categoryId', 'Category name', 'trim|required');
             $this->form_validation->set_rules('couponName', 'Coupon name', "trim|required|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]");
             $this->form_validation->set_rules('couponImage', 'Coupon image', "callback_validate_image");
@@ -167,7 +218,7 @@ class Coupons extends CI_Controller {
         }
 
         $data['coupon_details'] = $this->couponServices_model->editCoupon($couponId);
-        if (!$data['coupon_details']) {
+        if (!$data['coupon_details']) { // Redirect to coupons page if user tries to insert other user id in URL, if not exists.
             redirect(base_url() . 'coupons', 'refresh');
         }
         $data['categories'] = $this->getCategoryList();
@@ -177,6 +228,11 @@ class Coupons extends CI_Controller {
         $data['content'] = $this->load->view("coupon/edit_coupon", $data, true);
         $this->load->view("default_layout", $data);
     }
+
+    /*
+     * deleteCoupon() --> Delete coupon from coupon view page.
+     * @param: param1 int --> coupon id.
+     */
 
     public function deleteCoupon($couponId) {
         $flag = $this->couponServices_model->deleteCoupon($couponId);

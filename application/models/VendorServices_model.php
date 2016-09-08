@@ -3,10 +3,20 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class VendorServices_model extends CI_Model {
+    /*
+     * viewAllVendors() --> Fetch all vendors.     
+     * @return: array --> No. of vendor records.
+     */
 
     public function viewAllVendors() {
         return $this->db->get_where('wrh_vendor', array('is_deleted' => 0))->result_array();
     }
+
+    /*
+     * getImageSource() --> Get image data, convert to base64
+     * @param: param1 array(key, value) --> image info. (size, name, type, ... ).
+     * @return: base64 image string
+     */
 
     public function getImageSource($vendorImage) {
         $imageData = file_get_contents($vendorImage['path']);
@@ -14,6 +24,12 @@ class VendorServices_model extends CI_Model {
         $src = 'data:' . $vendorImage['file_type'] . ';base64,' . $base64Image;
         return $src;
     }
+
+    /*
+     * addVendor() --> Add vendor info to db.
+     * @param: param1 array(key, value) --> image info. (size, name, type, ... ).
+     * @return: bool true/false
+     */
 
     public function addVendor($vendorImage) {
         $vendorName = trim($this->input->post('vendorName'));
@@ -39,6 +55,12 @@ class VendorServices_model extends CI_Model {
         return $this->db->affected_rows() > 0 ? TRUE : FALSE;
     }
 
+    /*
+     * editVendor() --> Get vendor info by vendor id.
+     * @param: param1 int --> vendor id.
+     * @return: array --> vendor record.
+     */
+
     public function editVendor($vendorId) {
         $query = $this->db->get_where('wrh_vendor', array("vendorId" => $vendorId));
 
@@ -46,6 +68,12 @@ class VendorServices_model extends CI_Model {
             return $query->result_array();
         }
     }
+
+    /*
+     * updateVendor() --> Update vendor info by vendor id.
+     * @param: param1 int --> vendor id, param2 array(key, value) --> image info. (size, name, type, ... ).
+     * @return: bool true/false
+     */
 
     public function updateVendor($vendorId, $vendorImage) {
         $vendorName = trim($this->input->post('vendorName'));
@@ -67,6 +95,12 @@ class VendorServices_model extends CI_Model {
 
         return $this->db->affected_rows() > -1 ? TRUE : FALSE;
     }
+
+    /*
+     * deleteVendor() --> Delete vendor info by vendor id.
+     * @param: param1 int --> vendor id.
+     * @return: bool true/false
+     */
 
     public function deleteVendor($vendorId) {
         $this->db->delete('wrh_coupon', array('vendorId' => $vendorId));

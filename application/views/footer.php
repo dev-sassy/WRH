@@ -53,11 +53,11 @@
 <!--dynamic table-->
 
 <!-- validation -->
-  <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
 <!--  <script src="<?php echo base_url(); ?>assets/js/validation-init.js"></script>-->
-  <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/additional-methods.min.js"></script>
-  <!-- validation -->
-  
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/additional-methods.min.js"></script>
+<!-- validation -->
+
 <!--pickers plugins-->
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
@@ -66,11 +66,11 @@
 <!-- <script src="<?php echo base_url(); ?>assets/js/pickers-init.js"></script> -->
 <!--pickers plugins-->
 
-  <!-- ckeditor -->
-  <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/ckeditor/ckeditor.js"></script>
-  <!-- ckeditor -->
+<!-- ckeditor -->
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/ckeditor/ckeditor.js"></script>
+<!-- ckeditor -->
 
-  
+
 
 <!--dropzone-->
 <script src="<?php echo base_url(); ?>assets/js/dropzone/dropzone.js"></script>

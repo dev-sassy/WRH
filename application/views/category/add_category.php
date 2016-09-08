@@ -25,7 +25,7 @@
                             <?php echo form_input($categoryName_field); ?>
                         </div>
                     </div>
-                    
+
                     <?php
                     $categoryImage_field = array(
                         'name' => 'categoryImage',
@@ -36,7 +36,7 @@
                         'placeholder' => 'Category Image'
                     );
                     ?>
-                    
+
                     <div class="form-group clearfix">
                         <div class="col-md-12">
                             <?php echo form_label('Category Image :', 'categoryImage'); ?>

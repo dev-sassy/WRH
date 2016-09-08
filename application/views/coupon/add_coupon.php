@@ -81,7 +81,7 @@
                     <?php
                     $couponCode_field = array(
                         'name' => 'couponCode',
-                        'id' => 'couponCode',                        
+                        'id' => 'couponCode',
                         'value' => '',
                         'type' => 'number',
                         'min' => '1',

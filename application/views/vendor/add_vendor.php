@@ -36,7 +36,7 @@
                         'placeholder' => 'Vendor Image'
                     );
                     ?>
-                    
+
                     <div class="form-group clearfix">
                         <div class="col-md-12">
                             <?php echo form_label('Vendor Image :', 'vendorImage'); ?>

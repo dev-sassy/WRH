@@ -46,7 +46,7 @@
                             <?php echo form_input($couponName_field); ?>
                         </div>
                     </div>
-                    
+
                     <?php
                     $couponImage_field = array(
                         'name' => 'couponImage',

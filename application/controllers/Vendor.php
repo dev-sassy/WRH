@@ -4,20 +4,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Vendor extends CI_Controller {
 
-    public $upload_data = array();
+    public $upload_data = array(); // To store uploaded image data/info.
+
+    /*
+     * __construct() --> Default constructor.
+     */
 
     public function __construct() {
         parent:: __construct();
 
+        // Check for session if user logged-in.
         if ($this->session->userdata('USERNAME') === NULL || $this->session->userdata('USERNAME') === '') {
             redirect(base_url(), 'refresh');
         }
         $this->load->model('vendorServices_model');
     }
 
+    /*
+     * index() --> Default function whenever the controller is called.
+     */
+
     public function index() {
         $this->viewVendors();
     }
+
+    /*
+     * viewVendors() --> View vendor page is loaded. (Vendors > View Vendors)
+     */
 
     public function viewVendors() {
         $data['vendors'] = $this->vendorServices_model->viewAllVendors();
@@ -28,17 +41,23 @@ class Vendor extends CI_Controller {
         $this->load->view("default_layout", $data);
     }
 
+    /*
+     * validate_image() --> Upload image & validate if it's an image file & <= 1MB.
+     * @return: bool true/false
+     */
+
     function validate_image() {
         if ($_FILES && $_FILES['vendorImage']['size'] !== 0) {
             $upload_dir = './images/vendor';
-            if (!is_dir($upload_dir)) {
+
+            if (!is_dir($upload_dir)) { // Create directory if not exists.
                 mkdir($upload_dir, 0777, true);
             }
             $config['upload_path'] = $upload_dir;
             $config['allowed_types'] = 'gif|jpg|png|jpeg';
             $config['file_name'] = $_FILES['vendorImage']['name'];
             $config['overwrite'] = FALSE;
-            $config['max_size'] = 1024;
+            $config['max_size'] = 1024; // Default to 1MB.
 
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('vendorImage')) {
@@ -52,6 +71,10 @@ class Vendor extends CI_Controller {
             return TRUE;
         }
     }
+
+    /*
+     * addVendor() --> Load add vendor page. (Vendors > Add Vendor)
+     */
 
     public function addVendor() {
         $this->load->helper('form');
@@ -82,6 +105,10 @@ class Vendor extends CI_Controller {
         $data['content'] = $this->load->view("vendor/add_vendor", $data, true);
         $this->load->view("default_layout", $data);
     }
+
+    /*
+     * editVendor() --> Load edit vendor page from vendors view page.
+     */
 
     public function editVendor($vendorId) {
         $this->load->helper('form');
@@ -116,6 +143,11 @@ class Vendor extends CI_Controller {
         $data['content'] = $this->load->view("vendor/edit_vendor", $data, true);
         $this->load->view("default_layout", $data);
     }
+
+    /*
+     * deleteVendor() --> Delete vendor from vendor view page.
+     * @param: param1 int --> vendor id.
+     */
 
     public function deleteVendor($vendorId) {
         $flag = $this->vendorServices_model->deleteVendor($vendorId);
