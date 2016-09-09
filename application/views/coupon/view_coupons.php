@@ -50,7 +50,13 @@
                                     <tr>
                                         <td width="3"><?php echo $i++; ?></td>
                                         <td>
-                                            <?php echo '<img src="' . $item['couponImage'] . '" height="100" width="100" alt="Image not available." />'; ?>
+                                            <?php
+                                            if (empty($item['couponImage'])) {
+                                                echo '<img src="' . base_url() . 'assets/images/no-image.png' . '" height="100" width="100" alt="Image not available." />';
+                                            } else {
+                                                echo '<img src="' . base_url() . 'images/' . $item['couponImage'] . '" height="100" width="100" alt="Image not available." />';
+                                            }
+                                            ?>
                                         </td>
                                         <td>
                                             <?php echo $item['couponName']; ?>

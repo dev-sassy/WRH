@@ -41,7 +41,13 @@
                                             <?php echo $item['categoryName']; ?>
                                         </td>                                        
                                         <td>
-                                            <?php echo '<img src="' . $item['categoryImage'] . '" height="100" width="100" alt="Image not available." />'; ?>
+                                            <?php
+                                            if (empty($item['categoryImage'])) {
+                                                echo '<img src="' . base_url() . 'assets/images/no-image.png' . '" height="100" width="100" alt="Image not available." />';
+                                            } else {
+                                                echo '<img src="' . base_url() . 'images/' . $item['categoryImage'] . '" height="100" width="100" alt="Image not available." />';
+                                            }
+                                            ?>
                                         </td>
                                         <td>
                                             <a href="<?php echo base_url() . 'category/editCategory/' . $item['categoryId']; ?>">

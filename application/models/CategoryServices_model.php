@@ -24,17 +24,17 @@ class CategoryServices_model extends CI_Model {
 
     public function addCategory($categoryImage) {
         if (!$categoryImage || $categoryImage['file_size'] === 0 || !$categoryImage['is_image']) { // Use default image.
-            $categoryImage["path"] = base_url() . "assets/images/no-image.png";
+            $categoryImage["path"] = "";
             $categoryImage['file_type'] = "image/png";
         } else {
-            $categoryImage["path"] = base_url() . "images/category/" . $categoryImage['file_name'];
+            $categoryImage["path"] = "category/" . $categoryImage['file_name'];
         }
 
-        $src = $this->getImageSource($categoryImage);
+        //$src = $this->getImageSource($categoryImage);
 
         $data = array(
             "categoryName" => trim($this->input->post('categoryName')),
-            "categoryImage" => $src
+            "categoryImage" => $categoryImage["path"]
         );
         $this->db->insert('wrh_category', $data);
         return $this->db->affected_rows() > 0 ? TRUE : FALSE;
@@ -62,17 +62,17 @@ class CategoryServices_model extends CI_Model {
 
     public function updateCategory($categoryId, $categoryImage) {
         if (!$categoryImage || $categoryImage['file_size'] === 0 || !$categoryImage['is_image']) { // Use default image.
-            $categoryImage["path"] = base_url() . "assets/images/no-image.png";
+            $categoryImage["path"] = "";
             $categoryImage['file_type'] = "image/png";
         } else {
-            $categoryImage["path"] = base_url() . "images/category/" . $categoryImage['file_name'];
+            $categoryImage["path"] = "category/" . $categoryImage['file_name'];
         }
 
-        $src = $this->getImageSource($categoryImage);
+        //$src = $this->getImageSource($categoryImage);
 
         $data = array(
             "categoryName" => trim($this->input->post('categoryName')),
-            "categoryImage" => $src
+            "categoryImage" => $categoryImage["path"]
         );
         $this->db->update('wrh_category', $data, array("categoryId" => $categoryId));
         return $this->db->affected_rows() > -1 ? TRUE : FALSE;

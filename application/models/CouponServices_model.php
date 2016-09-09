@@ -42,19 +42,19 @@ class CouponServices_model extends CI_Model {
         $couponLimit = trim($this->input->post('couponLimit'));
 
         if (!$couponImage || $couponImage['file_size'] === 0 || !$couponImage['is_image']) {
-            $couponImage["path"] = base_url() . "assets/images/no-image.png";
+            $categoryImage["path"] = "";
             $couponImage['file_type'] = "image/png";
         } else {
-            $couponImage["path"] = base_url() . "images/coupon/" . $couponImage['file_name'];
+            $couponImage["path"] = "coupon/" . $couponImage['file_name'];
         }
 
-        $src = $this->getImageSource($couponImage);
+        //$src = $this->getImageSource($couponImage);
 
         $data = array(
             "categoryId" => $categoryId,
             "vendorId" => $vendorId,
             "couponName" => $couponName,
-            "couponImage" => $src,
+            "couponImage" => $couponImage["path"],
             "couponCode" => $couponCode,
             "startDate" => $startDate,
             "expiryDate" => $expiryDate,
@@ -112,19 +112,19 @@ class CouponServices_model extends CI_Model {
         $couponLimit = trim($this->input->post('couponLimit'));
 
         if (!$couponImage || $couponImage['file_size'] === 0 || !$couponImage['is_image']) {
-            $couponImage["path"] = base_url() . "assets/images/no-image.png";
+            $couponImage["path"] = "";
             $couponImage['file_type'] = "image/png";
         } else {
-            $couponImage["path"] = base_url() . "images/coupon/" . $couponImage['file_name'];
+            $couponImage["path"] = "coupon/" . $couponImage['file_name'];
         }
 
-        $src = $this->getImageSource($couponImage);
+        //$src = $this->getImageSource($couponImage);
 
         $data = array(
             "categoryId" => $categoryId,
             "vendorId" => $vendorId,
             "couponName" => $couponName,
-            "couponImage" => $src,
+            "couponImage" => $couponImage["path"],
             "couponCode" => $couponCode,
             "startDate" => $startDate,
             "expiryDate" => $expiryDate,

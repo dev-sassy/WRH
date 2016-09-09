@@ -23,7 +23,7 @@
                 <!-- page heading start-->
                 <div class="page-heading">
                     <h3>
-                        Dashboard
+                        <!--Dashboard-->
                     </h3>
                     <!--				<ul class="breadcrumb">
                                                             <li>
@@ -53,7 +53,7 @@
                 <!--body wrapper end-->
                 <!--footer section start-->
                 <footer>
-                    <?php echo date('Y') . " &copy; Sassy infotech"; ?>
+                    <?php echo date('Y') . " &copy; WRH. All Rights Reserved."; ?>
                 </footer>
                 <!--footer section end-->
 

@@ -153,7 +153,7 @@ class Coupons extends CI_Controller {
 
             $this->form_validation->set_rules('categoryId', 'Category name', 'trim|required|numeric');
             $this->form_validation->set_rules('vendorId', 'Vendor name', 'trim|required|numeric');
-            $this->form_validation->set_rules('couponName', 'Coupon name', "trim|required|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]");
+            $this->form_validation->set_rules('couponName', 'Coupon name', "trim|required|is_unique[wrh_coupon.couponName]|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]");
             $this->form_validation->set_rules('couponImage', 'Coupon image', "callback_validate_image");
             $this->form_validation->set_rules('couponCode', 'Coupon code', 'trim|required|numeric');
             $this->form_validation->set_rules('startDate', 'Start date', 'trim|required|callback_startDate_validation');

@@ -37,18 +37,18 @@ class VendorServices_model extends CI_Model {
         $createdOn = $createdOn->format('Y-m-d H:i:s');
 
         if (!$vendorImage || $vendorImage['file_size'] === 0 || !$vendorImage['is_image']) {
-            $vendorImage["path"] = base_url() . "assets/images/no-image.png";
+            $vendorImage["path"] = "";
             $vendorImage['file_type'] = "image/png";
         } else {
-            $vendorImage["path"] = base_url() . "images/vendor/" . $vendorImage['file_name'];
+            $vendorImage["path"] = "vendor/" . $vendorImage['file_name'];
         }
 
-        $src = $this->getImageSource($vendorImage);
+        //$src = $this->getImageSource($vendorImage);
 
         $data = array(
             "vendorName" => $vendorName,
             "createdOn" => $createdOn,
-            "vendorImage" => $src
+            "vendorImage" => $vendorImage["path"]
         );
 
         $this->db->insert('wrh_vendor', $data);
@@ -79,13 +79,13 @@ class VendorServices_model extends CI_Model {
         $vendorName = trim($this->input->post('vendorName'));
 
         if (!$vendorImage || $vendorImage['file_size'] === 0 || !$vendorImage['is_image']) {
-            $vendorImage["path"] = base_url() . "assets/images/no-image.png";
+            $vendorImage["path"] = "";
             $vendorImage['file_type'] = "image/png";
         } else {
-            $vendorImage["path"] = base_url() . "images/vendor/" . $vendorImage['file_name'];
+            $vendorImage["path"] = "vendor/" . $vendorImage['file_name'];
         }
 
-        $src = $this->getImageSource($vendorImage);
+        //$src = $this->getImageSource($vendorImage);
 
         $data = array(
             "vendorName" => $vendorName,

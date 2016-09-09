@@ -47,7 +47,13 @@
                                             <?php echo $company['createdOn']; ?>
                                         </td>
                                         <td>
-                                            <?php echo '<img src="' . $company['vendorImage'] . '" height="100" width="100" alt="Image not available." />'; ?>
+                                            <?php
+                                            if (empty($company['vendorImage'])) {
+                                                echo '<img src="' . base_url() . 'assets/images/no-image.png' . '" height="100" width="100" alt="Image not available." />';
+                                            } else {
+                                                echo '<img src="' . base_url() . 'images/' . $company['vendorImage'] . '" height="100" width="100" alt="Image not available." />';
+                                            }
+                                            ?>                                            
                                         </td>
                                         <td>
                                             <a href="<?php echo base_url() . 'vendor/editVendor/' . $company['vendorId']; ?>">

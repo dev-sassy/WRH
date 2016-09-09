@@ -82,7 +82,7 @@ class Vendor extends CI_Controller {
         if ($this->input->post('add_vendor')) {
             $this->load->library('form_validation');
 
-            $this->form_validation->set_rules('vendorName', 'Vendor name', "trim|required|min_length[2]|max_length[150]|regex_match[/^[a-zA-Z' ]+$/]");
+            $this->form_validation->set_rules('vendorName', 'Vendor name', "trim|required|is_unique[wrh_vendor.vendorName]|min_length[2]|max_length[150]|regex_match[/^[a-zA-Z' ]+$/]");
             $this->form_validation->set_rules('vendorImage', 'Vendor image', "callback_validate_image");
 
             if ($this->form_validation->run() === TRUE) {

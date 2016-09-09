@@ -38,7 +38,7 @@ class Category extends CI_Controller {
         $data['cat_count'] = count($data['categories']);
         $data['title'] = "Category View";
 
-        $data['content'] = $this->load->view("category/view_categories", $data, true);
+        $data['content'] = $this->load->view("category/view_categories", $data, true);        
         $this->load->view("default_layout", $data);
     }
 
@@ -84,7 +84,7 @@ class Category extends CI_Controller {
             $this->load->library('form_validation');
 
             // Validate the value against permissible rules.
-            $this->form_validation->set_rules('categoryName', 'Category name', "trim|required|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]");
+            $this->form_validation->set_rules('categoryName', 'Category name', "trim|required|is_unique[wrh_category.categoryName]|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]");
             $this->form_validation->set_rules('categoryImage', 'Category image', "callback_validate_image");
 
             if ($this->form_validation->run() === TRUE) {
