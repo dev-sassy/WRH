@@ -61,21 +61,36 @@ class CategoryServices_model extends CI_Model {
      */
 
     public function updateCategory($categoryId, $categoryImage) {
-        if (!$categoryImage || $categoryImage['file_size'] === 0 || !$categoryImage['is_image']) { // Use default image.
-            $categoryImage["path"] = "";
-            $categoryImage['file_type'] = "image/png";
+        $categoryName = trim($this->input->post('categoryName'));
+
+        $query = $this->db->get_where('wrh_category', array("categoryName" => $categoryName));
+        $category_details = $query->row_array();
+
+        if (!$category_details['categoryId'] || ($categoryId === $category_details['categoryId']) && !strcmp($categoryName, $category_details['categoryName'])) {
+            if (!$categoryImage || $categoryImage['file_size'] === 0 || !$categoryImage['is_image']) { // Use default image.
+                $categoryImage["path"] = "";
+                $categoryImage['file_type'] = "image/png";
+            } else {
+                $categoryImage["path"] = "category/" . $categoryImage['file_name'];
+            }
+
+            $data = array(
+                "categoryName" => $categoryName,
+                "categoryImage" => $categoryImage["path"]
+            );
+
+            $this->db->update('wrh_category', $data, array("categoryId" => $categoryId));
+
+            if ($this->db->affected_rows() > -1) {
+                return TRUE;
+            } else {
+                $this->session->set_flashdata('error_message', 'Please try again.');
+            }
         } else {
-            $categoryImage["path"] = "category/" . $categoryImage['file_name'];
+            $this->session->set_flashdata('error_message', 'Category name already exist.');
         }
-
-        //$src = $this->getImageSource($categoryImage);
-
-        $data = array(
-            "categoryName" => trim($this->input->post('categoryName')),
-            "categoryImage" => $categoryImage["path"]
-        );
-        $this->db->update('wrh_category', $data, array("categoryId" => $categoryId));
-        return $this->db->affected_rows() > -1 ? TRUE : FALSE;
+        
+        return FALSE;
     }
 
     /*

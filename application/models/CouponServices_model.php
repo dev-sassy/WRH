@@ -111,27 +111,40 @@ class CouponServices_model extends CI_Model {
         $expiryDate = trim($this->input->post('expiryDate'));
         $couponLimit = trim($this->input->post('couponLimit'));
 
-        if (!$couponImage || $couponImage['file_size'] === 0 || !$couponImage['is_image']) {
-            $couponImage["path"] = "";
-            $couponImage['file_type'] = "image/png";
+        $query = $this->db->get_where('wrh_coupon', array("couponName" => $couponName));
+        $coupon_details = $query->row_array();
+
+        if (!$coupon_details['couponId'] || ($couponId === $coupon_details['couponId']) && !strcmp($couponName, $coupon_details['couponName'])) {
+            if (!$couponImage || $couponImage['file_size'] === 0 || !$couponImage['is_image']) {
+                $couponImage["path"] = "";
+                $couponImage['file_type'] = "image/png";
+            } else {
+                $couponImage["path"] = "coupon/" . $couponImage['file_name'];
+            }
+
+            $data = array(
+                "categoryId" => $categoryId,
+                "vendorId" => $vendorId,
+                "couponName" => $couponName,
+                "couponImage" => $couponImage["path"],
+                "couponCode" => $couponCode,
+                "startDate" => $startDate,
+                "expiryDate" => $expiryDate,
+                "couponLimit" => $couponLimit
+            );
+
+            $this->db->update('wrh_coupon', $data, array("couponId" => $couponId));
+
+            if ($this->db->affected_rows() > -1) {
+                return TRUE;
+            } else {
+                $this->session->set_flashdata('error_message', 'Please try again.');
+            }
         } else {
-            $couponImage["path"] = "coupon/" . $couponImage['file_name'];
+            $this->session->set_flashdata('error_message', 'Coupon name already exist.');
         }
 
-        //$src = $this->getImageSource($couponImage);
-
-        $data = array(
-            "categoryId" => $categoryId,
-            "vendorId" => $vendorId,
-            "couponName" => $couponName,
-            "couponImage" => $couponImage["path"],
-            "couponCode" => $couponCode,
-            "startDate" => $startDate,
-            "expiryDate" => $expiryDate,
-            "couponLimit" => $couponLimit
-        );
-        $this->db->update('wrh_coupon', $data, array("couponId" => $couponId));
-        return $this->db->affected_rows() > -1 ? TRUE : FALSE;
+        return FALSE;
     }
 
     /*

@@ -26,7 +26,7 @@ $(document).ready(function () {
             },
             couponCode: {
                 required: true,
-                pattern: '^[0-9]+$'
+                pattern: '^[a-zA-Z0-9]+$'
             },
             startDate: {
                 required: true
@@ -48,7 +48,7 @@ $(document).ready(function () {
             },
             couponCode: {
                 required: "Please enter the coupon code.",
-                pattern: "Only digit is allowewd!"
+                pattern: "Only alpha-numeric is allowewd!"
             },
             startDate: {
                 required: "Please enter the start date-time.",

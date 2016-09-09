@@ -78,22 +78,33 @@ class VendorServices_model extends CI_Model {
     public function updateVendor($vendorId, $vendorImage) {
         $vendorName = trim($this->input->post('vendorName'));
 
-        if (!$vendorImage || $vendorImage['file_size'] === 0 || !$vendorImage['is_image']) {
-            $vendorImage["path"] = "";
-            $vendorImage['file_type'] = "image/png";
+        $query = $this->db->get_where('wrh_vendor', array("vendorName" => $vendorName));
+        $vendor_details = $query->row_array();
+
+        if (!$vendor_details['vendorId'] || ($vendorId === $vendor_details['vendorId']) && !strcmp($vendorName, $vendor_details['vendorName'])) {
+            if (!$vendorImage || $vendorImage['file_size'] === 0 || !$vendorImage['is_image']) {
+                $vendorImage["path"] = "";
+                $vendorImage['file_type'] = "image/png";
+            } else {
+                $vendorImage["path"] = "vendor/" . $vendorImage['file_name'];
+            }
+
+            $data = array(
+                "vendorName" => $vendorName,
+                "vendorImage" => $vendorImage["path"]
+            );
+            $this->db->update('wrh_vendor', $data, array("vendorId" => $vendorId));
+
+            if ($this->db->affected_rows() > -1) {
+                return TRUE;
+            } else {
+                $this->session->set_flashdata('error_message', 'Please try again.');
+            }
         } else {
-            $vendorImage["path"] = "vendor/" . $vendorImage['file_name'];
+            $this->session->set_flashdata('error_message', 'Vendor name already exist.');
         }
 
-        //$src = $this->getImageSource($vendorImage);
-
-        $data = array(
-            "vendorName" => $vendorName,
-            "vendorImage" => $src
-        );
-        $this->db->update('wrh_vendor', $data, array("vendorId" => $vendorId));
-
-        return $this->db->affected_rows() > -1 ? TRUE : FALSE;
+        return FALSE;
     }
 
     /*

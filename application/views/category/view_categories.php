@@ -43,9 +43,9 @@
                                         <td>
                                             <?php
                                             if (empty($item['categoryImage'])) {
-                                                echo '<img src="' . base_url() . 'assets/images/no-image.png' . '" height="100" width="100" alt="Image not available." />';
+                                                echo '<img src="' . base_url() . 'assets/images/no-image.png' . '" height="auto" width="100" alt="Image not available." />';
                                             } else {
-                                                echo '<img src="' . base_url() . 'images/' . $item['categoryImage'] . '" height="100" width="100" alt="Image not available." />';
+                                                echo '<img src="' . base_url() . 'images/' . $item['categoryImage'] . '" height="auto" width="100" alt="Image not available." />';
                                             }
                                             ?>
                                         </td>

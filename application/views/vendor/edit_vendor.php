@@ -31,7 +31,7 @@
                     $vendorImage_field = array(
                         'name' => 'vendorImage',
                         'id' => 'vendorImage',
-                        'value' => '',
+                        'value' => $vendor_details[0]['vendorImage'],
                         'accept' => 'image/*',
                         'class' => 'default',
                         'placeholder' => 'Vendor Image'
@@ -40,12 +40,24 @@
                     <div class="form-group clearfix">
                         <div class="col-md-12">
                             <?php echo form_label('Vendor Image :', 'vendorImage'); ?>
-                            <div class="fileupload fileupload-new" data-provides="fileupload">
-                                <input type="hidden" value="" name="" />
+                            <div class="fileupload <?php
+                            if (empty($vendor_details[0]['vendorImage'])) {
+                                echo 'fileupload-new';
+                            } else {
+                                echo 'fileupload-exists';
+                            }
+                            ?>" data-provides="fileupload">
                                 <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
                                     <img src="<?php echo base_url(); ?>assets/images/no-image.png" alt="No image">
                                 </div>
-                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 10px;"></div>
+                                <div class="fileupload-preview fileupload-exists thumbnail" 
+                                     style="max-width: 200px; max-height: 150px; line-height: 10px;">
+                                         <?php
+                                         if (!empty($vendor_details[0]['vendorImage'])) {
+                                             echo '<img src="' . base_url() . 'images/' . $vendor_details[0]['vendorImage'] . '" alt="No image" />';
+                                         }
+                                         ?>  
+                                </div>
                                 <div>
                                     <span class="btn btn-default btn-file">
                                         <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
@@ -66,7 +78,7 @@
                         'class' => 'btn btn-primary'
                     );
                     ?>
-                    <div class="form-group col-md-12">                        
+                    <div class="form-group col-md-12">
                         <?php echo form_submit($edit_vendor_btn); ?>     
                         <a href="<?php echo base_url() . 'vendor' ?>" class="btn btn-default"> Cancel </a>                            
                     </div>

@@ -82,9 +82,7 @@
                     $couponCode_field = array(
                         'name' => 'couponCode',
                         'id' => 'couponCode',
-                        'value' => '',
-                        'type' => 'number',
-                        'min' => '1',
+                        'value' => '',                        
                         'class' => 'form-control',
                         'placeholder' => 'Coupon Code'
                     );

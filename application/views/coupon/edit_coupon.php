@@ -51,7 +51,7 @@
                     $couponImage_field = array(
                         'name' => 'couponImage',
                         'id' => 'couponImage',
-                        'value' => '',
+                        'value' => $coupon_details[0]['couponImage'],
                         'accept' => 'image/*',
                         'class' => 'default',
                         'placeholder' => 'Coupon Image'
@@ -61,12 +61,24 @@
                     <div class="form-group clearfix">
                         <div class="col-md-12">
                             <?php echo form_label('Coupon Image :', 'couponImage'); ?>
-                            <div class="fileupload fileupload-new" data-provides="fileupload">
-                                <input type="hidden" value="" name="" />
+                            <div class="fileupload <?php
+                            if (empty($coupon_details[0]['couponImage'])) {
+                                echo 'fileupload-new';
+                            } else {
+                                echo 'fileupload-exists';
+                            }
+                            ?>" data-provides="fileupload">
                                 <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
-                                    <img src="<?php echo base_url(); ?>assets/images/no-image.png" alt="No image">
+                                    <img src="<?php echo base_url() . 'assets/images/no-image.png' ?>" alt="No image" />                                    
                                 </div>
-                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 10px;"></div>
+                                <div class="fileupload-preview fileupload-exists thumbnail" 
+                                     style="max-width: 200px; max-height: 150px; line-height: 10px;">
+                                         <?php
+                                         if (!empty($coupon_details[0]['couponImage'])) {
+                                             echo '<img src="' . base_url() . 'images/' . $coupon_details[0]['couponImage'] . '" alt="No image" />';
+                                         }
+                                         ?>
+                                </div>
                                 <div>
                                     <span class="btn btn-default btn-file">
                                         <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
@@ -83,8 +95,6 @@
                     $couponCode_field = array(
                         'name' => 'couponCode',
                         'id' => 'couponCode',
-                        'type' => 'number',
-                        'min' => '1',
                         'value' => $coupon_details[0]['couponCode'],
                         'class' => 'form-control',
                         'placeholder' => 'Coupon Code'

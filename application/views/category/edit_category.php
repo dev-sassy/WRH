@@ -31,7 +31,7 @@
                     $categoryImage_field = array(
                         'name' => 'categoryImage',
                         'id' => 'categoryImage',
-                        'value' => '',
+                        'value' => $cat_details[0]['categoryImage'],
                         'accept' => 'image/*',
                         'class' => 'default',
                         'placeholder' => 'Category Image'
@@ -41,12 +41,24 @@
                     <div class="form-group clearfix">
                         <div class="col-md-12">
                             <?php echo form_label('Category Image :', 'categoryImage'); ?>
-                            <div class="fileupload fileupload-new" data-provides="fileupload">
-                                <input type="hidden" value="" name="" />
+                            <div class="fileupload <?php
+                            if (empty($cat_details[0]['categoryImage'])) {
+                                echo 'fileupload-new';
+                            } else {
+                                echo 'fileupload-exists';
+                            }
+                            ?>" data-provides="fileupload">
                                 <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
                                     <img src="<?php echo base_url(); ?>assets/images/no-image.png" alt="No image">
                                 </div>
-                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 10px;"></div>
+                                <div class="fileupload-preview fileupload-exists thumbnail" 
+                                     style="max-width: 200px; max-height: 150px; line-height: 10px;">
+                                         <?php
+                                         if (!empty($cat_details[0]['categoryImage'])) {
+                                             echo '<img src="' . base_url() . 'images/' . $cat_details[0]['categoryImage'] . '" alt="No image" />';
+                                         }
+                                         ?>                                    
+                                </div>
                                 <div>
                                     <span class="btn btn-default btn-file">
                                         <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>

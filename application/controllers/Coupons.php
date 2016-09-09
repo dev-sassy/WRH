@@ -153,9 +153,9 @@ class Coupons extends CI_Controller {
 
             $this->form_validation->set_rules('categoryId', 'Category name', 'trim|required|numeric');
             $this->form_validation->set_rules('vendorId', 'Vendor name', 'trim|required|numeric');
-            $this->form_validation->set_rules('couponName', 'Coupon name', "trim|required|is_unique[wrh_coupon.couponName]|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]");
+            $this->form_validation->set_rules('couponName', 'Coupon name', "trim|required|is_unique[wrh_coupon.couponName]|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]", array("is_unique" => "Coupon name already exist."));
             $this->form_validation->set_rules('couponImage', 'Coupon image', "callback_validate_image");
-            $this->form_validation->set_rules('couponCode', 'Coupon code', 'trim|required|numeric');
+            $this->form_validation->set_rules('couponCode', 'Coupon code', "trim|required|regex_match[/^[a-zA-Z0-9]+$/]");
             $this->form_validation->set_rules('startDate', 'Start date', 'trim|required|callback_startDate_validation');
             $this->form_validation->set_rules('expiryDate', 'Expiry date', 'trim|required|callback_expiryDate_validation');
             $this->form_validation->set_rules('couponLimit', 'Coupon Limit', 'trim|required|numeric');
@@ -208,7 +208,6 @@ class Coupons extends CI_Controller {
                     $this->session->set_flashdata('success_message', 'Coupon details updated successfully.');
                     redirect(base_url() . 'coupons/viewCoupons', 'refresh');
                 } else {
-                    $this->session->set_flashdata('error_message', 'Please try again.');
                     redirect(base_url() . 'coupons/editCoupon/' . $couponId, 'refresh');
                 }
             } else {
