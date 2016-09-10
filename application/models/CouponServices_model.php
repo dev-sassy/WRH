@@ -278,7 +278,7 @@ class CouponServices_model extends CI_Model {
             $this->db->where('coupon.expiryDate >', $dt);
             $this->db->where('rc.uniqueId IS NULL OR rc.uniqueId !=', $field_details['uniqueId']);
             $this->db->where('rc.deviceType IS NULL OR rc.deviceType !=', $field_details['deviceType']);
-            $this->db->limit($limit);
+            $this->db->limit($limit, $index);
             $query = $this->db->get();
 
 //            $query = $this->db->get_compiled_select();

@@ -184,7 +184,9 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-usermenu pull-right">                    
-                    <li><a href="<?php echo base_url() . 'login/logout' ?>"><i class="fa fa-sign-out"></i> Log Out</a></li>
+					<li><a href="<?php echo base_url() . 'login/edit_profile' ?>"><i class="fa fa-sign-out"></i>Edit Profile</a></li>
+                    <li><a href="<?php echo base_url() . 'login/change_password' ?>"><i class="fa fa-sign-out"></i>Change Password</a></li>
+					<li><a href="<?php echo base_url() . 'login/logout' ?>"><i class="fa fa-sign-out"></i> Log Out</a></li>
                 </ul>
             </li>
 

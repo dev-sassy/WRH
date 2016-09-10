@@ -50,4 +50,28 @@ class WrhServices_model extends CI_Model {
         return $response;
     }
 
+    public function androidNotifications() {
+        $this->db->select('deviceToken');
+        $this->db->like('upper(deviceType)', 'ANDROID');
+        $query = $this->db->get_where("wrh_access_token_list", array("is_deleted" => "0"));
+
+        return $query->result_array();
+    }
+
+    public function iosNotifications() {
+        $this->db->select('deviceToken');
+        $this->db->like('upper(deviceType)', 'IOS');
+        $query = $this->db->get_where("wrh_access_token_list", array("is_deleted" => "0"));
+
+        return $query->result_array();
+    }
+
+    public function fetchTodaysNotifications() {
+        $this->db->where("created_on", date('Y-m-d'));
+        $this->db->where("is_deleted", 0);
+        $query = $this->db->get("wrh_notification");
+
+        return $query->result_array();
+    }
+
 }

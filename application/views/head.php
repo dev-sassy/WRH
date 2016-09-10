@@ -60,4 +60,5 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
     <script src="<?php echo base_url(); ?>assets/js/jquery-1.10.2.min.js"></script>	
+	<script> var SITE_URL = '<?PHP  echo base_url(); ?>';</script>
 </head>

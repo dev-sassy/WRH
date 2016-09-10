@@ -53,10 +53,11 @@
                     <li><a href="<?php echo base_url() . 'coupons/viewCoupons' ?>"> View All Coupons</a></li>                    
                 </ul>
             </li>
-			<li class="menu-list"><a href=""><i class="fa fa-info"></i> <span>Notifications</span></a>
+            
+            <li class="menu-list"><a href=""><i class="fa fa-info"></i> <span>Notifications</span></a>
                 <ul class="sub-menu-list">
                     <li><a href="<?php echo base_url() . 'notifications'; ?>"> View All Notifications</a></li> 
-                    <li><a href="<?php echo base_url() . 'notifications/addnotifications'; ?>"> Add Notifications</a></li> 
+                    <li><a href="<?php echo base_url() . 'notifications/addNotification'; ?>"> Add Notifications</a></li> 
                 </ul>
             </li>
 			<li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>Inquiry</span></a>
@@ -64,9 +65,16 @@
                     <li><a href="<?php echo base_url() . 'inquiry'; ?>"> View All inquiry</a></li> 
                 </ul>
             </li>
-			<li class="menu-list"><a href=""><i class="fa fa-user-md"></i> <span>Subscribers</span></a>
+            
+            <li class="menu-list"><a href=""><i class="fa fa-user-md"></i> <span>Subscribers</span></a>
                 <ul class="sub-menu-list">
                     <li><a href="<?php echo base_url() . 'subscribers'; ?>"> View All Subscribers</a></li> 
+                </ul>
+            </li>
+            
+            <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>Invites</span></a>
+                <ul class="sub-menu-list">
+                    <li><a href="<?php echo base_url() . 'invite/viewInvites'; ?>"> View All Invites</a></li> 
                 </ul>
             </li>
 

@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <section class="panel">
             <header class="panel-heading pd-btm-25px">
-                All Inquiry
+                All Invites                
             </header>
 
             <div class="panel-body">
@@ -14,50 +14,42 @@
                                     Sr No.
                                 </td>
                                 <td>
-                                   Name
-                                </td>
-								<td>
-                                    Email
+                                    Recipient Name
+                                </td>    
+                                <td>
+                                    Recipient Email
                                 </td>
                                 <td>
-                                   Subject
-                                </td>
-								<td>
-                                    Message
+                                    Recipient Phone
                                 </td>
                             </tr>
                         </thead>
                         <?php
-                        if ($inq_count >= 1) {
+                        if ($invite_count >= 1) {
                             ?>
                             <tbody>
                                 <?php
-                                $i = 1; 
-                                foreach ($inq_detail as $inq_detail_list) {
+                                $i = 1;
+                                foreach ($invites as $invite) {
                                     ?>
                                     <tr>
-                                        <td width="3%">
-                                            <?php echo $i++; ?>
+                                        <td width="3%"><?php echo $i++; ?></td>
+                                        <td>
+                                            <?php echo $invite['recipientName']; ?>
                                         </td>
                                         <td>
-                                            <?php echo $inq_detail_list->inquiryName; ?>
+                                            <?php echo $invite['recipientEmail']; ?>
                                         </td>
                                         <td>
-                                            <?php echo $inq_detail_list->inquiryEmail; ?>
-                                        </td>
-										<td>
-                                            <?php echo $inq_detail_list->inquirySubject; ?>
-                                        </td>
-										<td>
-                                            <?php echo $inq_detail_list->inquiryMessage; ?>
-                                        </td>
+                                            <?php echo $invite['recipientPhone']; ?>
+                                        </td>                                       
                                     </tr>
                                 <?php }
                                 ?>
                             </tbody>
                             <?php
                         } else {
-                            echo "No Record Found";
+                            echo "No Record Found.";
                         }
                         ?>
                     </table>

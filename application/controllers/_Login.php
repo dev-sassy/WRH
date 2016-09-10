@@ -64,7 +64,7 @@ class Login extends CI_Controller {
 				if ($this->form_validation->run() === TRUE) {
 					$res = $this->login_model->change_pass();
 					if ($res > 0) {
-						$this->session->set_flashdata('success_message', 'Your password has been changed.Please login to your account.');
+						$this->session->set_flashdata('successMsg', 'Your password has been changed.Please login to your account.');
 						$this->logout();
 					} else {
 						$this->session->set_flashdata('error_message', 'Old password and new password can not be same.');
@@ -103,21 +103,14 @@ class Login extends CI_Controller {
 				$this->form_validation->set_rules('lastname', 'Last name', 'trim|required|min_length[2]|max_length[20]|regex_match[/^[a-zA-Z]+$/]');
 
 				if ($this->form_validation->run() === TRUE) {
-					$data['status'] = $this->login_model->update_admin();
-					if($data['status']){
-						$this->session->set_flashdata('success_message', 'Profile Updated Successfully');
-						redirect(base_url().'login/edit_profile', 'refresh');
-					}else{
-						$this->session->set_flashdata('error_message', 'Sorry, please try again letter');
-						redirect(base_url().'login/edit_profile', 'refresh');
-					}
+					$this->login_model->update_admin_staff();
 				} else {
 					$this->session->set_flashdata('error_message', validation_errors());
 					redirect(base_url() . 'login/edit_profile', 'refresh');
 				}
 			}
-			//$data['js'] = array("admin_staff");
-			$data['content'] = $this->load->view("edit_profile", $data, true);
+			$data['js'] = array("admin_staff");
+			$data['content'] = $this->load->view("login/edit_profile", $data, true);
 			$this->load->view("default_layout", $data);
 		}
 		else {

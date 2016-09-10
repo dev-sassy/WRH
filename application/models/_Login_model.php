@@ -50,24 +50,6 @@ class Login_model extends CI_Model {
 			return 'Invalid Password';
 		}
 	}
-	
-	function edit_p_profile() {
-        $this->db->where("username", $this->session->userdata('USERNAME'));
-        $q = $this->db->get("wrh_users");
-        if ($q->num_rows() >= 1) {
-            return $q->result_array();
-        }
-    }
-	
-	function update_admin() {
-        $firstname = trim($this->input->post('firstname'));
-        $lastname = trim($this->input->post('lastname'));
-        $data = array("fname" => $firstname,
-            "lname" => $lastname);
-        $this->db->where('username', $this->session->userdata('USERNAME'));
-        $this->db->update("wrh_users", $data);
-        return 1;
-    }
 
 
 }
