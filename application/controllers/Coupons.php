@@ -48,9 +48,8 @@ class Coupons extends CI_Controller {
      */
 
     public function startDate_validation($str) {
-        $dt = new DateTime('now');
-        $dt = $dt->format('Y-m-d H:i:s');
-
+        $dt = date('Y-m-d');
+        
         if ($str < $dt) {
             $this->form_validation->set_message("startDate_validation", 'Start date-time should greater then current date-time.');
             return FALSE;
@@ -158,6 +157,7 @@ class Coupons extends CI_Controller {
             $this->form_validation->set_rules('couponCode', 'Coupon code', "trim|required|regex_match[/^[a-zA-Z0-9]+$/]");
             $this->form_validation->set_rules('startDate', 'Start date', 'trim|required|callback_startDate_validation');
             $this->form_validation->set_rules('expiryDate', 'Expiry date', 'trim|required|callback_expiryDate_validation');
+            $this->form_validation->set_rules('couponDescription', 'Coupon description', 'trim');
             $this->form_validation->set_rules('couponLimit', 'Coupon Limit', 'trim|required|numeric');
 
             if ($this->form_validation->run() === TRUE) {
@@ -198,7 +198,7 @@ class Coupons extends CI_Controller {
             $this->form_validation->set_rules('categoryId', 'Category name', 'trim|required');
             $this->form_validation->set_rules('couponName', 'Coupon name', "trim|required|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]");
             $this->form_validation->set_rules('couponImage', 'Coupon image', "callback_validate_image");
-            $this->form_validation->set_rules('couponCode', 'Coupon code', 'trim|required|numeric');
+            $this->form_validation->set_rules('couponCode', 'Coupon code', "trim|required|regex_match[/^[a-zA-Z0-9]+$/]");
             $this->form_validation->set_rules('expiryDate', 'Expiry date', 'trim|required|callback_expiryDate_validation');
             $this->form_validation->set_rules('couponLimit', 'Coupon Limit', 'trim|required|numeric');
 

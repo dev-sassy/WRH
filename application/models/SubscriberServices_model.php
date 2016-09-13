@@ -36,8 +36,8 @@ class SubscriberServices_model extends CI_Model {
         return FALSE;
     }
 
-    public function subscribersList($subscriber_details) {
-        if ($this->validate_access($subscriber_details) === TRUE) {
+    public function subscribersList($subscriber_details, $is_admin = FALSE) {
+        if ($this->validate_access($subscriber_details) === TRUE || $is_admin === TRUE) {
             $query = $this->db->get('wrh_subscribers');
 
             if ($query->num_rows() > 0) {

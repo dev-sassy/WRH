@@ -39,10 +39,11 @@ class CouponServices_model extends CI_Model {
         $couponCode = trim($this->input->post('couponCode'));
         $startDate = trim($this->input->post('startDate'));
         $expiryDate = trim($this->input->post('expiryDate'));
+        $couponDescription = trim($this->input->post('couponDescription'));
         $couponLimit = trim($this->input->post('couponLimit'));
 
         if (!$couponImage || $couponImage['file_size'] === 0 || !$couponImage['is_image']) {
-            $categoryImage["path"] = "";
+            $couponImage["path"] = "";
             $couponImage['file_type'] = "image/png";
         } else {
             $couponImage["path"] = "coupon/" . $couponImage['file_name'];
@@ -58,6 +59,7 @@ class CouponServices_model extends CI_Model {
             "couponCode" => $couponCode,
             "startDate" => $startDate,
             "expiryDate" => $expiryDate,
+            "couponDescription" => $couponDescription,
             "couponLimit" => $couponLimit
         );
 
@@ -109,6 +111,7 @@ class CouponServices_model extends CI_Model {
         $couponCode = trim($this->input->post('couponCode'));
         $startDate = trim($this->input->post('startDate'));
         $expiryDate = trim($this->input->post('expiryDate'));
+        $couponDescription = trim($this->input->post('couponDescription'));
         $couponLimit = trim($this->input->post('couponLimit'));
 
         $query = $this->db->get_where('wrh_coupon', array("couponName" => $couponName));
@@ -130,6 +133,7 @@ class CouponServices_model extends CI_Model {
                 "couponCode" => $couponCode,
                 "startDate" => $startDate,
                 "expiryDate" => $expiryDate,
+                "couponDescription" => $couponDescription,
                 "couponLimit" => $couponLimit
             );
 

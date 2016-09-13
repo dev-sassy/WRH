@@ -68,7 +68,7 @@
             
             <li class="menu-list"><a href=""><i class="fa fa-user-md"></i> <span>Subscribers</span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="<?php echo base_url() . 'subscribers'; ?>"> View All Subscribers</a></li> 
+                    <li><a href="<?php echo base_url() . 'subscribers/viewSubscribers'; ?>"> View All Subscribers</a></li> 
                 </ul>
             </li>
             

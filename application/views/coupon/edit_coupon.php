@@ -11,7 +11,7 @@
                     $hidden_coupon_id = array('couponId' => $coupon_details[0]['couponId']);
                     echo form_open_multipart('coupons/editCoupon/' . $coupon_details[0]['couponId'], $attributes, $hidden_coupon_id);
 
-                    $attrib = array("class" => "form-control", "required" => TRUE, "title" => "Please select atleast one category.");
+                    $attrib = array("class" => "form-control", "required" => TRUE, "title" => "Please select category.");
                     ?>
                     <div class="form-group clearfix">
                         <div class="col-md-12">
@@ -21,7 +21,7 @@
                     </div>
 
                     <?php
-                    $attrib = array("class" => "form-control", "required" => TRUE, "title" => "Please select atleast one vendor.");
+                    $attrib = array("class" => "form-control", "required" => TRUE, "title" => "Please select vendor.");
                     ?>
                     <div class="form-group clearfix">
                         <div class="col-md-12">
@@ -140,6 +140,23 @@
                         <div class="col-md-12">
                             <?php echo form_label('Expiry Date :', 'expiryDate'); ?>
                             <?php echo form_input($expiryDate_field); ?>
+                        </div>
+                    </div>
+
+                    <?php
+                    $couponDescription_field = array(
+                        'name' => 'couponDescription',
+                        'id' => 'couponDescription',
+                        'value' => $coupon_details[0]['couponDescription'],
+                        'rows' => 3,
+                        'class' => 'form-control',
+                        'placeholder' => 'Coupon Description'
+                    );
+                    ?>
+                    <div class="form-group clearfix">
+                        <div class="col-md-12">
+                            <?php echo form_label('Coupon Description :', 'couponDescription'); ?>
+                            <?php echo form_textarea($couponDescription_field); ?>
                         </div>
                     </div>
 

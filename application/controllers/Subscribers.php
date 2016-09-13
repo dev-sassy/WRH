@@ -14,7 +14,7 @@ class Subscribers extends CI_Controller {
         if ($this->session->userdata('USERNAME') === NULL || $this->session->userdata('USERNAME') === '') {
             redirect(base_url(), 'refresh');
         }
-        $this->load->model('categoryServices_model');
+        $this->load->model('subscriberServices_model');
     }
 
     /*
@@ -22,9 +22,16 @@ class Subscribers extends CI_Controller {
      */
 
     public function index() {
-        $data['title'] = "Subscribers";
+        $this->viewSubscribers();
+    }
 
-        $data['content'] = $this->load->view("subscribers", $data, true);
+    public function viewSubscribers() {
+        $data['subscribers'] = $this->subscriberServices_model->subscribersList(array(), TRUE);
+        $data['subscribers'] = $data['subscribers']['data'];
+        $data['subscribers_count'] = count($data['subscribers']);
+        $data['title'] = "Subscribers View";
+
+        $data['content'] = $this->load->view("subscriber/view_subscribers", $data, true);
         $this->load->view("default_layout", $data);
     }
 
