@@ -24,7 +24,7 @@ class Login_model extends CI_Model {
             $flag = TRUE;
         } else {
             $flag = FALSE;
-            $status = "Invalid User Name Or Password. Please check your login details.";
+            $status = "Invalid user name or password. Please check your login details.";
         }
 
         return array(
@@ -32,42 +32,40 @@ class Login_model extends CI_Model {
             'isSuccess' => $flag
         );
     }
-	
-	function change_pass(){
-		$data = array("password" => md5($this->input->post('password')));
-		$this->db->where('username', $this->session->userdata('USERNAME'));
+
+    function change_pass() {
+        $data = array("password" => md5($this->input->post('password')));
+        $this->db->where('username', $this->session->userdata('USERNAME'));
         $this->db->update('wrh_users', $data);
-		return $this->db->affected_rows();
-	}
-	
-	function chk_for_old_pass($user_name,$input_pass){
-		$this->db->where('username', $user_name);
+        return $this->db->affected_rows();
+    }
+
+    function chk_for_old_pass($user_name, $input_pass) {
+        $this->db->where('username', $user_name);
         $this->db->where('password', md5($input_pass));
         $q = $this->db->get('wrh_users');
         if ($q->num_rows() == 1) {
             return 'valid';
-        }else{
-			return 'Invalid Password';
-		}
-	}
-	
-	function edit_p_profile() {
+        } else {
+            return 'Invalid Password';
+        }
+    }
+
+    function edit_p_profile() {
         $this->db->where("username", $this->session->userdata('USERNAME'));
         $q = $this->db->get("wrh_users");
         if ($q->num_rows() >= 1) {
             return $q->result_array();
         }
     }
-	
-	function update_admin() {
+
+    function update_admin() {
         $firstname = trim($this->input->post('firstname'));
         $lastname = trim($this->input->post('lastname'));
-        $data = array("fname" => $firstname,
-            "lname" => $lastname);
+        $data = array("fname" => $firstname, "lname" => $lastname);
         $this->db->where('username', $this->session->userdata('USERNAME'));
         $this->db->update("wrh_users", $data);
         return 1;
     }
-
 
 }

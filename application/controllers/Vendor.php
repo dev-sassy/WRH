@@ -36,6 +36,7 @@ class Vendor extends CI_Controller {
         $data['vendors'] = $this->vendorServices_model->viewAllVendors();
         $data['vendor_count'] = count($data['vendors']);
         $data['title'] = "Vendor View";
+        $data['js'] = array("customs/confirmation_modal");
 
         $data['content'] = $this->load->view("vendor/view_vendors", $data, true);
         $this->load->view("default_layout", $data);

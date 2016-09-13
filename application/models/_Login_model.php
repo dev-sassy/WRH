@@ -32,24 +32,23 @@ class Login_model extends CI_Model {
             'isSuccess' => $flag
         );
     }
-	
-	function change_pass(){
-		$data = array("password" => md5($this->input->post('password')));
-		$this->db->where('username', $this->session->userdata('USERNAME'));
+
+    function change_pass() {
+        $data = array("password" => md5($this->input->post('password')));
+        $this->db->where('username', $this->session->userdata('USERNAME'));
         $this->db->update('wrh_users', $data);
-		return $this->db->affected_rows();
-	}
-	
-	function chk_for_old_pass($user_name,$input_pass){
-		$this->db->where('username', $user_name);
+        return $this->db->affected_rows();
+    }
+
+    function chk_for_old_pass($user_name, $input_pass) {
+        $this->db->where('username', $user_name);
         $this->db->where('password', md5($input_pass));
         $q = $this->db->get('wrh_users');
         if ($q->num_rows() == 1) {
             return 'valid';
-        }else{
-			return 'Invalid Password';
-		}
-	}
-
+        } else {
+            return 'Invalid Password';
+        }
+    }
 
 }

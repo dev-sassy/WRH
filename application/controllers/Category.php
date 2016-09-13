@@ -37,6 +37,7 @@ class Category extends CI_Controller {
         $data['categories'] = $data['categories']['data'];
         $data['cat_count'] = count($data['categories']);
         $data['title'] = "Category View";
+        $data['js'] = array("customs/confirmation_modal");
 
         $data['content'] = $this->load->view("category/view_categories", $data, true);
         $this->load->view("default_layout", $data);

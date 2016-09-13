@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    
     $('#startDate').datetimepicker({
         autoclose: true,
         todayBtn: true,

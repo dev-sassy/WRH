@@ -44,11 +44,11 @@ class Inquiry extends CI_Controller {
         $this->setDefaultRules($inquiry_details);
 
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('inquiryName', 'Inquiry name', 'trim|required');
-        $this->form_validation->set_rules('inquiryEmail', 'Inquiry email', 'trim|required');
+        $this->form_validation->set_rules('inquiryName', 'Inquiry name', "trim|required|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]");
+        $this->form_validation->set_rules('inquiryEmail', 'Inquiry email', 'trim|required|valid_email');
         $this->form_validation->set_rules('inquirySubject', 'Inquiry subject', 'trim|required');
         $this->form_validation->set_rules('inquiryMessage', 'Inquiry message', 'trim|required');
-        $this->form_validation->set_rules('inquiryPhone', 'Inquiry phone', 'trim|required');
+        $this->form_validation->set_rules('inquiryPhone', 'Inquiry phone', 'trim|required|min_length[10]|max_length[10]');
 
         // Default response.
         $response = array(

@@ -36,6 +36,7 @@ class Coupons extends CI_Controller {
         $data['coupons'] = $this->couponServices_model->viewAllCoupons(array(), true);
         $data['coupon_count'] = count($data['coupons']);
         $data['title'] = "Coupon View";
+        $data['js'] = array("customs/confirmation_modal");
 
         $data['content'] = $this->load->view("coupon/view_coupons", $data, true);
         $this->load->view("default_layout", $data);

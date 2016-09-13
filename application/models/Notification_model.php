@@ -8,17 +8,7 @@ class Notification_model extends CI_Model {
         $this->db->where("is_deleted", (int) 0);
         $this->db->order_by('notificationId', 'desc');
         $q = $this->db->get('wrh_notification');
-        // Push Notification 
-        /* $data = array('post_id'=>'12345','post_title'=>'A Blog post');
-          $target = array('token1','token2','token3');
-          $this->sendMessage($data, $target); */
-
-        // Fetch Device Info
-        /* $device_type = 'ANDROID';
-          $user_list = $this->user_list_for_notification($device_type);
-          echo "<pre>";
-          print_r($user_list);die; */
-
+        
         if ($q->num_rows() > 0) {
             return $q->result();
         }

@@ -229,14 +229,6 @@ class CouponServices_model extends CI_Model {
         $categoryId = isset($field_details['categoryId']) ? $field_details['categoryId'] : NULL;
         $vendorId = isset($field_details['vendorId']) ? $field_details['vendorId'] : NULL;
 
-        /* if (!$categoryId && !$vendorId) {
-          return array(
-          'data' => NULL,
-          'status' => 0,
-          'responseMessage' => 'Atleast category id or vendor id is required.'
-          );
-          } */
-
         if ($this->validate_access($field_details) === TRUE || $is_admin == TRUE) {
             if ($categoryId && !$vendorId) {
                 $select = "cat.categoryId, cat.categoryName, coupon.*";
@@ -266,10 +258,12 @@ class CouponServices_model extends CI_Model {
             $this->db->select($select);
             $this->db->from("wrh_coupon AS coupon");
             $this->db->join("wrh_redeem_coupon AS rc", "rc.couponId = coupon.couponId ", 'left');
+            
             if (!(!$categoryId && !$vendorId)) {
                 $this->db->join($joinParam1, $joinParam2, 'inner');
                 $this->db->where($where);
             }
+            
             if ($categoryId && $vendorId) {
                 $this->db->join($join2Param1, $join2Param2, 'inner');
             }
@@ -281,7 +275,7 @@ class CouponServices_model extends CI_Model {
             $this->db->where('coupon.startDate <=', $dt);
             $this->db->where('coupon.expiryDate >', $dt);
             $this->db->where('rc.uniqueId IS NULL OR rc.uniqueId !=', $field_details['uniqueId']);
-            $this->db->where('rc.deviceType IS NULL OR rc.deviceType !=', $field_details['deviceType']);
+            
             if ($categoryId) {
                 $this->db->limit($limit, $index);
             }

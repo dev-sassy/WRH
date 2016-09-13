@@ -20,7 +20,7 @@ class Login extends CI_Controller {
     public function index() {
         // Check for session if user logged-in.
         if ($this->session->userdata('USERNAME') !== NULL && $this->session->userdata('USERNAME') !== '') {
-            redirect(base_url() . 'category', 'refresh');
+            redirect(base_url() . 'coupons', 'refresh');
         }
         $this->load->model('login_model');
 
@@ -30,7 +30,7 @@ class Login extends CI_Controller {
             $check_login = $this->login_model->chk_login();
             if ($check_login["isSuccess"]) {
                 $this->session->set_userdata('USERNAME', $this->input->post('username'));
-                redirect(base_url() . 'category');
+                redirect(base_url() . 'coupons');
             }
         }
 
@@ -55,7 +55,7 @@ class Login extends CI_Controller {
     function change_password() {
         if ($this->session->userdata('USERNAME')) {
             $data['title'] = "Change Password";
-            $data['js'] = array("change_pass");
+            $data['js'] = array("customs/change_pass");
             if ($this->input->post('update')) {
                 $this->load->library('form_validation');
                 $this->form_validation->set_rules('old_password', 'Old Password', 'trim|required');
@@ -64,7 +64,7 @@ class Login extends CI_Controller {
                 if ($this->form_validation->run() === TRUE) {
                     $res = $this->login_model->change_pass();
                     if ($res > 0) {
-                        $this->session->set_flashdata('success_message', 'Your password has been changed.Please login to your account.');
+                        $this->session->set_flashdata('success_message', 'Your password has been changed. Please login to your account.');
                         $this->logout();
                     } else {
                         $this->session->set_flashdata('error_message', 'Old password and new password can not be same.');
@@ -96,6 +96,7 @@ class Login extends CI_Controller {
             $this->load->helper('form');
             $data['asd'] = $this->login_model->edit_p_profile();
             $data['title'] = "Edit Profile";
+            $data['js'] = array("customs/edit_profile");
 
             if ($this->input->post('update_asd')) {
                 $this->load->library('form_validation');
@@ -106,10 +107,10 @@ class Login extends CI_Controller {
                 if ($this->form_validation->run() === TRUE) {
                     $data['status'] = $this->login_model->update_admin();
                     if ($data['status']) {
-                        $this->session->set_flashdata('success_message', 'Profile Updated Successfully');
+                        $this->session->set_flashdata('success_message', 'Profile updated successfully.');
                         redirect(base_url() . 'login/edit_profile', 'refresh');
                     } else {
-                        $this->session->set_flashdata('error_message', 'Sorry, please try again letter');
+                        $this->session->set_flashdata('error_message', 'Please try again latter.');
                         redirect(base_url() . 'login/edit_profile', 'refresh');
                     }
                 } else {

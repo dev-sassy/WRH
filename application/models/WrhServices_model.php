@@ -9,6 +9,14 @@ class WrhServices_model extends CI_Model {
      */
 
     public function addUniqueId($access_details) {
+        if (strtolower($access_details['deviceToken']) == 'null' || strtolower($access_details['deviceToken']) == NULL) {
+            return array(
+                'data' => NULL,
+                'status' => 0,
+                'responseMessage' => "Device token can not be null."
+            );
+        }
+
         $this->db->where("uniqueId", $access_details['uniqueId']);
         $this->db->where("deviceType", $access_details['deviceType']);
         $this->db->where("deviceToken", $access_details['deviceToken']);
@@ -19,15 +27,14 @@ class WrhServices_model extends CI_Model {
         $access_token = $this->encryption->encrypt($key);
 
         $access_details['accessToken'] = $access_token;
-        $dt = new DateTime('now');
-        $dt = $dt->format('Y-m-d H:i:s');
+        $dt = date('Y-m-d H:i:s', time());
         $access_details['accessTokenTime'] = $dt;
 
         if ($query->num_rows() > 0) {
-            $accessTokenId = $query->row_array();
-            $accessTokenId = $accessTokenId['accessTokenId'];
+            $row_record = $query->row_array();
+            $uniqueId = $row_record['uniqueId'];
 
-            $this->db->where('accessTokenId', $accessTokenId);
+            $this->db->where('uniqueId', $uniqueId);
             $this->db->update('wrh_access_token_list', array('is_deleted' => 1));
         }
 

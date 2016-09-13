@@ -1,15 +1,10 @@
 <div class="left-side sticky-left-side">
     <!--logo and iconic logo start-->
     <div class="logo">
-        <a href="<?php echo base_url() . 'category'; ?>">
+        <a href="<?php echo base_url() . 'coupons'; ?>">
             <img src="<?php echo base_url(); ?>assets/images/wrh_logo.png" height="50px" alt="">
         </a>
     </div>
-
-    <!--        <div class="logo-icon text-center">
-                <a href="<?php echo base_url() . $this->session->userdata('route_path') . '/success_login'; ?>"><img src="<?php echo base_url(); ?>assets/images/HBMC LOGO.png" height="50px" alt=""></a>
-            </div>-->
-    <!--logo and iconic logo end-->
 
     <div class="left-side-inner">
 
@@ -53,25 +48,26 @@
                     <li><a href="<?php echo base_url() . 'coupons/viewCoupons' ?>"> View All Coupons</a></li>                    
                 </ul>
             </li>
-            
+
             <li class="menu-list"><a href=""><i class="fa fa-info"></i> <span>Notifications</span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="<?php echo base_url() . 'notifications'; ?>"> View All Notifications</a></li> 
                     <li><a href="<?php echo base_url() . 'notifications/addNotification'; ?>"> Add Notifications</a></li> 
+                    <li><a href="<?php echo base_url() . 'notifications'; ?>"> View All Notifications</a></li>                     
                 </ul>
             </li>
-			<li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>Inquiry</span></a>
+            
+            <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>Inquiry</span></a>
                 <ul class="sub-menu-list">
                     <li><a href="<?php echo base_url() . 'inquiry'; ?>"> View All inquiry</a></li> 
                 </ul>
             </li>
-            
+
             <li class="menu-list"><a href=""><i class="fa fa-user-md"></i> <span>Subscribers</span></a>
                 <ul class="sub-menu-list">
                     <li><a href="<?php echo base_url() . 'subscribers/viewSubscribers'; ?>"> View All Subscribers</a></li> 
                 </ul>
             </li>
-            
+
             <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>Invites</span></a>
                 <ul class="sub-menu-list">
                     <li><a href="<?php echo base_url() . 'invite/viewInvites'; ?>"> View All Invites</a></li> 

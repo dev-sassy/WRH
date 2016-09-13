@@ -53,8 +53,9 @@
                                             <a href="<?php echo base_url() . 'category/editCategory/' . $item['categoryId']; ?>">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
                                             </a>
-                                            &nbsp;&nbsp;&nbsp;
-                                            <a href="<?php echo base_url() . 'category/deleteCategory/' . $item['categoryId']; ?>" onclick="return confirm('Are you sure?');">
+                                            &nbsp;&nbsp;&nbsp;                                            
+                                            <a href="javascript: void(0);" 
+                                               onclick="open_confirmation_modal('<?php echo base_url() . 'category/deleteCategory/' . $item['categoryId']; ?>');">
                                                 <i class="fa fa-times" aria-hidden="true" title="Delete"></i>
                                             </a>
                                         </td>
@@ -70,6 +71,8 @@
                     </table>
                 </div>
             </div>
+            
+            <?php $this->load->view('confirmation_modal'); ?>
         </section>
     </div>
 </div>

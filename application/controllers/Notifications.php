@@ -22,6 +22,8 @@ class Notifications extends CI_Controller {
             $data['noti_detail'] = $this->notification_model->fetchNotification();
             $data['noti_count'] = count($data['noti_detail']);
             $data['content'] = $this->load->view("notification/view_notification", $data, true);
+            $data['js'] = array("customs/confirmation_modal");
+            
             $this->load->view("default_layout", $data);
         } else {
             redirect(base_url() . 'login', 'refresh');
