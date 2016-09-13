@@ -2,21 +2,23 @@
     <div class="col-md-12">
         <section class="panel">
             <header class="panel-heading">
-                Add Notification
+                Edit Notification
             </header>
             <div class="panel-body">
                 <div class="col-md-6">
                     <form id="add_note_form" role="form" class="cmxform form-horizontal adminex-form" method="post">
                         <div class="form-group clearfix">
                             <div class="col-md-12">
-                                <label for="title">Title</label>
-                                <input type="text" class="form-control" name="title" id="title" placeholder="Title" />
+                                <label for="exampleInputEmail1">Description</label>
+                                <textarea class="form-control" name="description" id="description" rows="5" cols="50" placeholder="Description">
+                                    <?php echo $note_detail[0]['notification_message']; ?>
+                                </textarea>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="col-md-12">
-                                <label for="exampleInputEmail1">Description</label>
-                                <textarea class="form-control" name="description" id="description" rows="5" cols="50" placeholder="Description"></textarea>
+                                <label for="exampleInputEmail1">Date</label>
+                                <input type="text" class="form-control" name="event_date" id="event_date" value=<?php echo $note_detail[0]['created_on']; ?> placeholder="Date" />
                             </div>
                         </div>
                         <div class="form-group col-md-12">

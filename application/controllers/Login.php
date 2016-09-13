@@ -9,7 +9,7 @@ class Login extends CI_Controller {
 
     public function __construct() {
         parent:: __construct();
-		$this->load->model('login_model');
+        $this->load->model('login_model');
     }
 
     /*
@@ -46,83 +46,82 @@ class Login extends CI_Controller {
         $this->session->sess_destroy();
         redirect(base_url() . 'login', 'refresh');
     }
-	
-	/*
+
+    /*
      * Function Name : change_password()
      * Purpose : Change password of doctor
      */
-	function change_password(){
-		
-		if ($this->session->userdata('USERNAME')) {
-			$data['title'] = "Change Password";
-			$data['js'] = array("change_pass");
-			if ($this->input->post('update')) {
-				$this->load->library('form_validation');
-				$this->form_validation->set_rules('old_password', 'Old Password', 'trim|required');
-				$this->form_validation->set_rules('password', 'Password', 'trim|required');
-				$this->form_validation->set_rules('re_password', 'Confirm Password', 'trim|required|matches[password]');
-				if ($this->form_validation->run() === TRUE) {
-					$res = $this->login_model->change_pass();
-					if ($res > 0) {
-						$this->session->set_flashdata('success_message', 'Your password has been changed.Please login to your account.');
-						$this->logout();
-					} else {
-						$this->session->set_flashdata('error_message', 'Old password and new password can not be same.');
-						redirect(base_url() . 'login/change_password', 'refresh');
-					}
-				}else{
-					$this->session->set_flashdata('error_message', validation_errors());
-					redirect(base_url() . 'login/change_password', 'refresh');
-				}
-			}
+
+    function change_password() {
+        if ($this->session->userdata('USERNAME')) {
+            $data['title'] = "Change Password";
+            $data['js'] = array("change_pass");
+            if ($this->input->post('update')) {
+                $this->load->library('form_validation');
+                $this->form_validation->set_rules('old_password', 'Old Password', 'trim|required');
+                $this->form_validation->set_rules('password', 'Password', 'trim|required');
+                $this->form_validation->set_rules('re_password', 'Confirm Password', 'trim|required|matches[password]');
+                if ($this->form_validation->run() === TRUE) {
+                    $res = $this->login_model->change_pass();
+                    if ($res > 0) {
+                        $this->session->set_flashdata('success_message', 'Your password has been changed.Please login to your account.');
+                        $this->logout();
+                    } else {
+                        $this->session->set_flashdata('error_message', 'Old password and new password can not be same.');
+                        redirect(base_url() . 'login/change_password', 'refresh');
+                    }
+                } else {
+                    $this->session->set_flashdata('error_message', validation_errors());
+                    redirect(base_url() . 'login/change_password', 'refresh');
+                }
+            }
             $data['content'] = $this->load->view("change_pass", $data, true);
             $this->load->view("default_layout", $data);
-		}else {
-			redirect(base_url() . 'login', 'refresh');
-        }
-	}
-	
-	function chk_for_old_pass(){
-		$user_name = $this->session->userdata('USERNAME');
-		$input_pass = $this->input->post('old_password');
-		$data = $this->login_model->chk_for_old_pass($user_name,$input_pass);
-		
-		echo $data;exit;
-	}
-	
-	function edit_profile(){
-		if ($this->session->userdata('USERNAME')) {
-			$this->load->helper('form');
-			$data['asd'] = $this->login_model->edit_p_profile();
-			$data['title'] = "Edit Profile";
-
-			if ($this->input->post('update_asd')) {
-				$this->load->library('form_validation');
-
-				$this->form_validation->set_rules('firstname', 'First name', 'trim|required|min_length[2]|max_length[20]|regex_match[/^[a-zA-Z]+$/]');
-				$this->form_validation->set_rules('lastname', 'Last name', 'trim|required|min_length[2]|max_length[20]|regex_match[/^[a-zA-Z]+$/]');
-
-				if ($this->form_validation->run() === TRUE) {
-					$data['status'] = $this->login_model->update_admin();
-					if($data['status']){
-						$this->session->set_flashdata('success_message', 'Profile Updated Successfully');
-						redirect(base_url().'login/edit_profile', 'refresh');
-					}else{
-						$this->session->set_flashdata('error_message', 'Sorry, please try again letter');
-						redirect(base_url().'login/edit_profile', 'refresh');
-					}
-				} else {
-					$this->session->set_flashdata('error_message', validation_errors());
-					redirect(base_url() . 'login/edit_profile', 'refresh');
-				}
-			}
-			//$data['js'] = array("admin_staff");
-			$data['content'] = $this->load->view("edit_profile", $data, true);
-			$this->load->view("default_layout", $data);
-		}
-		else {
+        } else {
             redirect(base_url() . 'login', 'refresh');
         }
-	}
+    }
+
+    function chk_for_old_pass() {
+        $user_name = $this->session->userdata('USERNAME');
+        $input_pass = $this->input->post('old_password');
+        $data = $this->login_model->chk_for_old_pass($user_name, $input_pass);
+
+        echo $data;
+        exit;
+    }
+
+    function edit_profile() {
+        if ($this->session->userdata('USERNAME')) {
+            $this->load->helper('form');
+            $data['asd'] = $this->login_model->edit_p_profile();
+            $data['title'] = "Edit Profile";
+
+            if ($this->input->post('update_asd')) {
+                $this->load->library('form_validation');
+
+                $this->form_validation->set_rules('firstname', 'First name', 'trim|required|min_length[2]|max_length[20]|regex_match[/^[a-zA-Z]+$/]');
+                $this->form_validation->set_rules('lastname', 'Last name', 'trim|required|min_length[2]|max_length[20]|regex_match[/^[a-zA-Z]+$/]');
+
+                if ($this->form_validation->run() === TRUE) {
+                    $data['status'] = $this->login_model->update_admin();
+                    if ($data['status']) {
+                        $this->session->set_flashdata('success_message', 'Profile Updated Successfully');
+                        redirect(base_url() . 'login/edit_profile', 'refresh');
+                    } else {
+                        $this->session->set_flashdata('error_message', 'Sorry, please try again letter');
+                        redirect(base_url() . 'login/edit_profile', 'refresh');
+                    }
+                } else {
+                    $this->session->set_flashdata('error_message', validation_errors());
+                    redirect(base_url() . 'login/edit_profile', 'refresh');
+                }
+            }
+            $data['content'] = $this->load->view("edit_profile", $data, true);
+            $this->load->view("default_layout", $data);
+        } else {
+            redirect(base_url() . 'login', 'refresh');
+        }
+    }
 
 }

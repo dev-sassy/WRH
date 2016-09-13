@@ -12,25 +12,24 @@ class Inquiry extends CI_Controller {
 
         $this->load->model('inquiry_model');
     }
-	
 
     /*
      * index() --> Default function whenever the controller is called.
      */
 
     public function index() {
-		if ($this->session->userdata('USERNAME')) {
-			$data['title'] = "Inquiry";
-			$data['inq_detail'] = $this->inquiry_model->fetchInquiry();
-			$data['inq_count'] = count($data['inq_detail']);
-			$data['content'] = $this->load->view("inquiry", $data, true);
-			$this->load->view("default_layout", $data);
-		}else{
-			redirect(base_url() . 'login', 'refresh');
-		}
+        if ($this->session->userdata('USERNAME')) {
+            $data['title'] = "Inquiry";
+            $data['inq_detail'] = $this->inquiry_model->fetchInquiry();
+            $data['inq_count'] = count($data['inq_detail']);
+            $data['content'] = $this->load->view("inquiry", $data, true);
+            $this->load->view("default_layout", $data);
+        } else {
+            redirect(base_url() . 'login', 'refresh');
+        }
     }
-	
-	 public function setDefaultRules($field_details) {
+
+    public function setDefaultRules($field_details) {
         $this->load->library('form_validation');
         $this->form_validation->set_data($field_details);
 
@@ -39,17 +38,18 @@ class Inquiry extends CI_Controller {
         $this->form_validation->set_rules('deviceType', 'Device type', 'trim|required');
         $this->form_validation->set_rules('deviceToken', 'Device token', 'trim|required');
     }
-	
-	public function addInquiry(){
-		$inquiry_details = json_decode(file_get_contents('php://input'), true);
+
+    public function addInquiry() {
+        $inquiry_details = json_decode(file_get_contents('php://input'), true);
         $this->setDefaultRules($inquiry_details);
-		
-		$this->load->library('form_validation');
-        $this->form_validation->set_rules('inquiryName', 'Inquiry Name', 'trim|required');
-		$this->form_validation->set_rules('inquiryEmail', 'Inquiry Email', 'trim|required');
-		$this->form_validation->set_rules('inquirySubject', 'Inquiry Subject', 'trim|required');
-		$this->form_validation->set_rules('inquiryMessage', 'Inquiry Message', 'trim|required');
-		
+
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('inquiryName', 'Inquiry name', 'trim|required');
+        $this->form_validation->set_rules('inquiryEmail', 'Inquiry email', 'trim|required');
+        $this->form_validation->set_rules('inquirySubject', 'Inquiry subject', 'trim|required');
+        $this->form_validation->set_rules('inquiryMessage', 'Inquiry message', 'trim|required');
+        $this->form_validation->set_rules('inquiryPhone', 'Inquiry phone', 'trim|required');
+
         // Default response.
         $response = array(
             'data' => NULL,
@@ -71,6 +71,6 @@ class Inquiry extends CI_Controller {
         header('Content-type: application/json');
         echo json_encode(array('outputParam' => $response));
         exit;
-	}
+    }
 
 }

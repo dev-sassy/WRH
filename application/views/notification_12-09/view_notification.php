@@ -24,6 +24,7 @@
 								<td>
                                    Date
                                 </td>
+								<td>Edit</td>
 								<td>Delete</td>
                             </tr>
                         </thead>
@@ -44,6 +45,11 @@
                                         </td>
 										<td>
 											<?php echo $noti_detail_list->created_on; ?>
+										</td>
+										<td width="5%">
+											<?php if($noti_detail_list->created_on >= date('Y-m-d')) { ?>
+											<a href="<?php echo base_url() . 'notifications/edit_notifications/' . $noti_detail_list->notificationId; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i></a>
+											<?php } ?>
 										</td>
 										<td width="5%">
 										<?php if($noti_detail_list->created_on >= date('Y-m-d')) { ?>

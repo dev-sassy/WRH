@@ -86,5 +86,5 @@ defined('EXIT__AUTO_MIN') OR define('EXIT__AUTO_MIN', 9); // lowest automaticall
 defined('EXIT__AUTO_MAX') OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 define('ASSETS_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/WRH/assets/');
-define('FROM_EMAIL', 'bhargav.sassyinfotech@gmail.com');
+define('FROM_EMAIL', 'devsassyinfotech@gmail.com');
 define('TO_EMAIL', 'bhargav.sassyinfotech@gmail.com');

@@ -72,8 +72,8 @@ class Notification_model extends CI_Model {
     function addNotification() {
         $time = strtotime($this->input->post('event_date'));
         $newformat = date('Y-m-d', $time);
-        $data = array("notification_message" => trim($this->input->post('description')), "title" => trim($this->input->post('title')),
-            "created_on" => date('Y-m-d'));
+        $data = array("notification_message" => trim($this->input->post('description')),
+            "created_on" => $newformat);
         $this->db->insert('wrh_notification', $data);
         if ($this->db->affected_rows() > 0) {
             return 1;
@@ -128,14 +128,6 @@ class Notification_model extends CI_Model {
         }
 
         return $response;
-    }
-
-    public function androidNotifications() {
-        $this->db->select('deviceToken');
-        $this->db->like('upper(deviceType)', 'ANDROID');
-        $query = $this->db->get_where("wrh_access_token_list", array("is_deleted" => "0"));
-
-        return $query->result_array();
     }
 
 }

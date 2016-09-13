@@ -1,5 +1,5 @@
 $(document).ready(function () {
-     $("#add_note_form").validate({
+    $("#add_note_form").validate({
         rules: {
             event_date: {
                 required: true
@@ -21,11 +21,11 @@ $(document).ready(function () {
             }
         }
     });
-	
-	var nowDate = new Date();
+
+    var nowDate = new Date();
     var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
-	$('#event_date').datepicker({
+    $('#event_date').datepicker({
         startDate: today
     });
-	
+
 });

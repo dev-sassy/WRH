@@ -20,15 +20,6 @@ class NotificationServices extends CI_Controller {
             'responseMessage' => 'Server refused to process request. Please try again later.'
         );
 
-//        if ($this->form_validation->run() === FALSE) {
-//            $response = array(
-//                'data' => NULL,
-//                'status' => 0,
-//                'responseMessage' => strip_tags(validation_errors())
-//            );
-//        } else {
-//            $response = $this->notification_model->notificationsList();
-//        }
         $response = $this->notification_model->notificationsList();
 
         // Send JSON response.

@@ -9,14 +9,14 @@
                     <form id="add_note_form" role="form" class="cmxform form-horizontal adminex-form" method="post">
                         <div class="form-group clearfix">
                             <div class="col-md-12">
-                                <label for="title">Title</label>
-                                <input type="text" class="form-control" name="title" id="title" placeholder="Title" />
+                                <label for="exampleInputEmail1">Description</label>
+                                <textarea class="form-control" name="description" id="description" rows="5" cols="50" placeholder="Description"></textarea>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="col-md-12">
-                                <label for="exampleInputEmail1">Description</label>
-                                <textarea class="form-control" name="description" id="description" rows="5" cols="50" placeholder="Description"></textarea>
+                                <label for="exampleInputEmail1">Date</label>
+                                <input type="text" class="form-control"  name="event_date" id="event_date" placeholder="Date" />
                             </div>
                         </div>
                         <div class="form-group col-md-12">

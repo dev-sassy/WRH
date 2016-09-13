@@ -28,6 +28,9 @@ class InviteServices extends CI_Controller {
     }
 
     public function send_mail($from, $to, $subject, $message) {
+        $this->email->clear();
+        $config['mailtype'] = 'html';
+        $this->email->initialize($config);
         $this->email->from($from, 'WRH');
         $this->email->to($to);
         $this->email->subject($subject);
@@ -67,12 +70,15 @@ class InviteServices extends CI_Controller {
             if ($response['data']) {
                 $to = $response['data']['recipientEmail'];
                 $subject = "Setup app";
-                $message = "Hello " . $response['data']['recipientName'] . "<br/>";
+                $message = "Hello " . $response['data']['recipientName'] . ",<br/><br/>";
                 $message .= "Please follow the link to install app: <br/><br/>";
-                $message .= "<a href='www.gogle.com' target='_blank'>Click here to Install</a>";
+                $message .= "<a href='https://play.google.com/store?hl=en' target='_blank'>"
+                        . "<img src='" . ASSETS_URL . "images/PlayStore.ico' height='50' width='50' alt='Google play-store' /></a>";
+                $message .= "&nbsp;&nbsp;&nbsp;<a href='https://www.appstore.com/' target='_blank'>"
+                        . "<img src='" . ASSETS_URL . "images/AppStore.ico' height='50' width='50' alt='Apple play-store' /></a>";
                 $response['responseMessage'] .= " " . $this->send_mail(FROM_EMAIL, $to, $subject, $message);
             }
-        }        
+        }
 
         // Send JSON response.
         header('Content-type: application/json');

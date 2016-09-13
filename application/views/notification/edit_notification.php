@@ -10,17 +10,19 @@
                         <div class="form-group clearfix">
                             <div class="col-md-12">
                                 <label for="exampleInputEmail1">Description</label>
-                                <textarea class="form-control" name="description" id="description" rows="5" cols="50" placeholder="Description"><?php echo $note_detail[0]['notification_message']; ?></textarea>
+                                <textarea class="form-control" name="description" id="description" rows="5" cols="50" placeholder="Description">
+                                    <?php echo $note_detail[0]['notification_message']; ?>
+                                </textarea>
                             </div>
                         </div>
-						<div class="form-group clearfix">
+                        <div class="form-group clearfix">
                             <div class="col-md-12">
                                 <label for="exampleInputEmail1">Date</label>
-								<input type="text" class="form-control"  name="event_date" id="event_date" value=<?php echo $note_detail[0]['created_on']; ?> placeholder="Date" />
+                                <input type="text" class="form-control" name="event_date" id="event_date" value=<?php echo $note_detail[0]['created_on']; ?> placeholder="Date" />
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <input type="submit" class="btn btn-primary" name="add_note" id="add_note" value="Add Notification"/>
+                        <div class="form-group col-md-12">
+                            <input type="submit" class="btn btn-primary" name="add_note" id="add_note" value="Update Notification"/>
                             <a href="<?php echo base_url() . 'notifications' ?>" class="btn btn-default"> Cancel </a>                            
                         </div>
                     </form>

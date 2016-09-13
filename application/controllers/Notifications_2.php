@@ -72,7 +72,7 @@ class Notifications extends CI_Controller {
         //FCM api URL
         $url = 'https://fcm.googleapis.com/fcm/send';
         //api_key available in Firebase Console -> Project Settings -> CLOUD MESSAGING -> Server key
-        $server_key = 'AIzaSyDtC5UIYwY5nOiuIKj-UXgrR3JAMtyPbsI';
+        $server_key = 'AIzaSyAJmWkhVPsnoEbOMr6BkCGE_SwJxmnnkjA';
         $fields = array();
         $fields['notification'] = array("title" => $title, "body" => $message);
         $fields['data'] = array("message" => $message);
@@ -102,7 +102,7 @@ class Notifications extends CI_Controller {
             die('FCM Send Error: ' . curl_error($ch));
         }
         curl_close($ch);
-        $file = fopen($_SERVER['DOCUMENT_ROOT'] . "/wrh/application/logs/pushnotification/send_android_" . date('Y-m-d') . ".txt", "a+");
+        $file = fopen($_SERVER['DOCUMENT_ROOT'] . "/surat/timesluxuria/application/logs/pushnotification/send_android_" . date('Y-m-d') . ".txt", "a+");
         fwrite($file, "=============start : android======================\n\n");
         fwrite($file, date('Y-m-d H:i:s') . "\n\n");
         fwrite($file, json_encode($result) . "\n\n");
