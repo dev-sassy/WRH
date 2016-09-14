@@ -17,20 +17,7 @@ class Login_model extends CI_Model {
         $this->db->where('is_deleted', 0);
         $query = $this->db->get('wrh_users');
 
-        $status = NULL;
-        $flag = FALSE;
-
-        if ($query->num_rows() > 0) {
-            $flag = TRUE;
-        } else {
-            $flag = FALSE;
-            $status = "Invalid user name or password. Please check your login details.";
-        }
-
-        return array(
-            'status' => $status,
-            'isSuccess' => $flag
-        );
+        return $query->num_rows() > 0 ? TRUE : FALSE;            
     }
 
     function change_pass() {

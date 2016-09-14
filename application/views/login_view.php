@@ -4,20 +4,14 @@
 <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js" ></script>
 
 <div class="login-body">
-    <?php if ($status !== '') { ?>
-        <div style="margin-bottom: 0;" class="alert alert-success" id="edit_succ">
-            <h6> <?php echo $status; ?> </h6>
-        </div>
-    <?php } ?>
-
     <?php if ($this->session->flashdata('success_message') !== NULL) { ?>
-        <div class="alert alert-success" id="alert_success">
+    <div class="alert alert-success" style="text-align: center;" id="alert_success">
             <?php echo '<h6>' . $this->session->flashdata('success_message') . '</h6>'; ?>
         </div>
     <?php } ?>
 
     <?php if ($this->session->flashdata('error_message') !== NULL) { ?>
-        <div class="alert alert-danger" id="alert-error">
+        <div class="alert alert-danger" style="text-align: center;" id="alert-error">
             <?php echo '<h6>' . $this->session->flashdata('error_message') . '</h6>'; ?>
         </div>
     <?php } ?>

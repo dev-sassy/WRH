@@ -27,10 +27,11 @@ class Login extends CI_Controller {
         $check_login["status"] = '';
 
         if ($this->input->post('chk_login')) {
-            $check_login = $this->login_model->chk_login();
-            if ($check_login["isSuccess"]) {
+            if ($this->login_model->chk_login()) {
                 $this->session->set_userdata('USERNAME', $this->input->post('username'));
                 redirect(base_url() . 'coupons');
+            } else {
+                $this->session->set_flashdata('error_message', 'Invalid username or password. Please check your login details.');
             }
         }
 
@@ -43,9 +44,9 @@ class Login extends CI_Controller {
      */
 
     public function logout($flag = FALSE) {
-        $this->session->sess_destroy();
+        $this->session->set_userdata('USERNAME', NULL);
         if ($flag) {
-            $this->session->set_flashdata('success_message', 'Your password has been changed. Please login to your account.');            
+            $this->session->set_flashdata('success_message', 'Your password has been changed. Please login to your account.');
         }
         redirect(base_url() . 'login', 'refresh');
     }
@@ -67,7 +68,6 @@ class Login extends CI_Controller {
                 if ($this->form_validation->run() === TRUE) {
                     $res = $this->login_model->change_pass();
                     if ($res > 0) {
-//                        $this->session->set_flashdata('success_message', 'Your password has been changed. Please login to your account.');
                         $this->logout(TRUE);
                     } else {
                         $this->session->set_flashdata('error_message', 'Old password and new password can not be same.');
