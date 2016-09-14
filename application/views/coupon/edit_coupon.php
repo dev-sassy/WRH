@@ -113,14 +113,14 @@
                         'id' => 'startDate',
                         'value' => $coupon_details[0]['startDate'],
                         'class' => 'form-control',
-                        'placeholder' => 'Start Date',
+                        'placeholder' => 'Start Date-time',
                         'required' => 'true',
                         'readonly' => 'true'
                     );
                     ?>                    
                     <div class="form-group clearfix">
                         <div class="col-md-12">
-                            <?php echo form_label('Start Date :', 'startDate'); ?>
+                            <?php echo form_label('Start Date-time :', 'startDate'); ?>
                             <?php echo form_input($startDate_field); ?>                            
                         </div>
                     </div>
@@ -131,14 +131,14 @@
                         'id' => 'expiryDate',
                         'value' => $coupon_details[0]['expiryDate'],
                         'class' => 'form-control',
-                        'placeholder' => 'Expiry Date',
+                        'placeholder' => 'Expiry Date-time',
                         'required' => 'true',
                         'readonly' => 'true'
                     );
                     ?>
                     <div class="form-group clearfix">
                         <div class="col-md-12">
-                            <?php echo form_label('Expiry Date :', 'expiryDate'); ?>
+                            <?php echo form_label('Expiry Date-time :', 'expiryDate'); ?>
                             <?php echo form_input($expiryDate_field); ?>
                         </div>
                     </div>
@@ -166,6 +166,7 @@
                         'id' => 'couponLimit',
                         'type' => 'number',
                         'min' => '1',
+                        'step' => '1',
                         'value' => $coupon_details[0]['couponLimit'],
                         'class' => 'form-control',
                         'placeholder' => 'Coupon Limit'

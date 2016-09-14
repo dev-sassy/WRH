@@ -22,7 +22,7 @@ class Notifications extends CI_Controller {
             $data['noti_detail'] = $this->notification_model->fetchNotification();
             $data['noti_count'] = count($data['noti_detail']);
             $data['content'] = $this->load->view("notification/view_notification", $data, true);
-            $data['js'] = array("customs/confirmation_modal");
+            $data['js'] = array("customs/confirmation_modal", "customs/notification");
             
             $this->load->view("default_layout", $data);
         } else {
@@ -33,10 +33,11 @@ class Notifications extends CI_Controller {
     public function addNotification() {
         if ($this->session->userdata('USERNAME')) {
             $data['title'] = "Add Notifications";
-            $data['js'] = array("notification");
+            $data['js'] = array("customs/notification");
             if ($this->input->post('add_note')) {
                 $this->load->library('form_validation');
-                $this->form_validation->set_rules('description', 'description', 'trim|required');
+                $this->form_validation->set_rules('title', 'Title', 'trim|required');
+                $this->form_validation->set_rules('description', 'Description', 'trim|required');
                 if ($this->form_validation->run() === TRUE) {
                     $data['status'] = $this->notification_model->addNotification();
                     if ($data['status']) {

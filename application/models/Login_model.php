@@ -47,7 +47,7 @@ class Login_model extends CI_Model {
         if ($q->num_rows() == 1) {
             return 'valid';
         } else {
-            return 'Invalid Password';
+            return 'Invalid Password!';
         }
     }
 

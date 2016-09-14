@@ -36,7 +36,7 @@ class Vendor extends CI_Controller {
         $data['vendors'] = $this->vendorServices_model->viewAllVendors();
         $data['vendor_count'] = count($data['vendors']);
         $data['title'] = "Vendor View";
-        $data['js'] = array("customs/confirmation_modal");
+        $data['js'] = array("customs/confirmation_modal", "customs/vendor");
 
         $data['content'] = $this->load->view("vendor/view_vendors", $data, true);
         $this->load->view("default_layout", $data);
@@ -89,7 +89,7 @@ class Vendor extends CI_Controller {
             if ($this->form_validation->run() === TRUE) {
                 $flag = $this->vendorServices_model->addVendor($this->upload_data);
                 if ($flag) {
-                    $this->session->set_flashdata('success_message', 'Vendor added successfully.');
+                    $this->session->set_flashdata('success_message', 'Vendor is added successfully.');
                     redirect(base_url() . 'vendor/viewVendors', 'refresh');
                 } else {
                     $this->session->set_flashdata('error_message', 'Please try again.');
@@ -123,7 +123,7 @@ class Vendor extends CI_Controller {
             if ($this->form_validation->run() === TRUE) {
                 $flag = $this->vendorServices_model->updateVendor($this->input->post('vendorId'), $this->upload_data);
                 if ($flag) {
-                    $this->session->set_flashdata('success_message', 'Vendor updated successfully.');
+                    $this->session->set_flashdata('success_message', 'Vendor details updated successfully.');
                     redirect(base_url() . 'vendor/viewVendors', 'refresh');
                 } else {                    
                     redirect(base_url() . 'vendor/editVendor/' . $vendorId, 'refresh');
@@ -152,7 +152,7 @@ class Vendor extends CI_Controller {
     public function deleteVendor($vendorId) {
         $flag = $this->vendorServices_model->deleteVendor($vendorId);
         if ($flag) {
-            $this->session->set_flashdata('success_message', 'Vendor deleted successfully.');
+            $this->session->set_flashdata('success_message', 'Vendor is deleted successfully.');
             redirect(base_url() . 'vendor/viewVendors');
         } else {
             $this->session->set_flashdata('error_message', 'Please try again.');

@@ -42,8 +42,11 @@ class Login extends CI_Controller {
      * --> Redirect to login page.
      */
 
-    public function logout() {
+    public function logout($flag = FALSE) {
         $this->session->sess_destroy();
+        if ($flag) {
+            $this->session->set_flashdata('success_message', 'Your password has been changed. Please login to your account.');            
+        }
         redirect(base_url() . 'login', 'refresh');
     }
 
@@ -64,8 +67,8 @@ class Login extends CI_Controller {
                 if ($this->form_validation->run() === TRUE) {
                     $res = $this->login_model->change_pass();
                     if ($res > 0) {
-                        $this->session->set_flashdata('success_message', 'Your password has been changed. Please login to your account.');
-                        $this->logout();
+//                        $this->session->set_flashdata('success_message', 'Your password has been changed. Please login to your account.');
+                        $this->logout(TRUE);
                     } else {
                         $this->session->set_flashdata('error_message', 'Old password and new password can not be same.');
                         redirect(base_url() . 'login/change_password', 'refresh');

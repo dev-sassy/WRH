@@ -1,5 +1,17 @@
 $(document).ready(function () {
-    
+
+    $('#vendor-table').dataTable({
+        "aaSorting": [[0, "asc"]],
+        "aoColumnDefs": [{
+                'bSortable': false,
+                'aTargets': [1]
+            }, {
+                'bSortable': false,
+                'aTargets': [4]
+            }
+        ]
+    });
+
     $("#add_vendor_form, #edit_vendor_form").validate({
         rules: {
             vendorName: {

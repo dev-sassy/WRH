@@ -8,7 +8,7 @@ class VendorServices_model extends CI_Model {
      * @return: array --> No. of vendor records.
      */
 
-    public function viewAllVendors() {
+    public function viewAllVendors() {        
         return $this->db->get_where('wrh_vendor', array('is_deleted' => 0))->result_array();
     }
 

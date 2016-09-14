@@ -1,7 +1,17 @@
 $(document).ready(function () {
+    
+    $('#notification-table').dataTable({
+        "aaSorting": [[0, "asc"]],
+        "aoColumnDefs": [{
+                'bSortable': false,
+                'aTargets': [3]
+            },
+        ]
+    });
+    
     $("#add_note_form").validate({
         rules: {
-            event_date: {
+            title: {
                 required: true
             },
             description: {
@@ -11,21 +21,15 @@ $(document).ready(function () {
             }
         },
         messages: {
-            event_date: {
-                required: "Event Date Required",
+            title: {
+                required: "Title is required.",
             },
             description: {
-                required: "Description Required",
-                minlength: "Description must be between 6 and 200 characters!",
-                maxlength: "Description must be between 6 and 200 characters!",
+                required: "Description is required.",
+                minlength: "Description must contain 6 to 200 characters.",
+                maxlength: "Description must contain 6 to 200 characters.",
             }
         }
-    });
-
-    var nowDate = new Date();
-    var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
-    $('#event_date').datepicker({
-        startDate: today
     });
 
 });

@@ -34,6 +34,7 @@ class Invite extends CI_Controller {
         $data['invites'] = $data['invites']['data'];
         $data['invite_count'] = count($data['invites']);
         $data['title'] = "Invite View";
+        $data['js'] = array("customs/invite");
 
         $data['content'] = $this->load->view("invite/view_invites", $data, true);
         $this->load->view("default_layout", $data);

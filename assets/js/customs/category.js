@@ -1,5 +1,17 @@
 $(document).ready(function () {
 
+    $('#category-table').dataTable({
+        "aaSorting": [[0, "asc"]],
+        "aoColumnDefs": [{
+                'bSortable': false,
+                'aTargets': [1]
+            }, {
+                'bSortable': false,
+                'aTargets': [3]
+            }
+        ]
+    });
+
     $("#add_category_form, #edit_category_form").validate({
         rules: {
             categoryName: {

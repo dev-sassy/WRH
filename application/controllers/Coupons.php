@@ -36,7 +36,7 @@ class Coupons extends CI_Controller {
         $data['coupons'] = $this->couponServices_model->viewAllCoupons(array(), true);
         $data['coupon_count'] = count($data['coupons']);
         $data['title'] = "Coupon View";
-        $data['js'] = array("customs/confirmation_modal");
+        $data['js'] = array("customs/confirmation_modal", "customs/coupons");
 
         $data['content'] = $this->load->view("coupon/view_coupons", $data, true);
         $this->load->view("default_layout", $data);
@@ -155,7 +155,7 @@ class Coupons extends CI_Controller {
             $this->form_validation->set_rules('vendorId', 'Vendor name', 'trim|required|numeric');
             $this->form_validation->set_rules('couponName', 'Coupon name', "trim|required|is_unique[wrh_coupon.couponName]|min_length[2]|max_length[50]|regex_match[/^[a-zA-Z' ]+$/]", array("is_unique" => "Coupon name already exist."));
             $this->form_validation->set_rules('couponImage', 'Coupon image', "callback_validate_image");
-            $this->form_validation->set_rules('couponCode', 'Coupon code', "trim|required|regex_match[/^[a-zA-Z0-9]+$/]");
+            $this->form_validation->set_rules('couponCode', 'Coupon code', "trim|required|regex_match[/^[a-zA-Z0-9]+$/]|is_unique[wrh_coupon.couponCode]");
             $this->form_validation->set_rules('startDate', 'Start date', 'trim|required|callback_startDate_validation');
             $this->form_validation->set_rules('expiryDate', 'Expiry date', 'trim|required|callback_expiryDate_validation');
             $this->form_validation->set_rules('couponDescription', 'Coupon description', 'trim');

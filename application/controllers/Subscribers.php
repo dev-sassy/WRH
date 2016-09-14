@@ -30,6 +30,7 @@ class Subscribers extends CI_Controller {
         $data['subscribers'] = $data['subscribers']['data'];
         $data['subscribers_count'] = count($data['subscribers']);
         $data['title'] = "Subscribers View";
+        $data['js'] = array("customs/subscriber");
 
         $data['content'] = $this->load->view("subscriber/view_subscribers", $data, true);
         $this->load->view("default_layout", $data);

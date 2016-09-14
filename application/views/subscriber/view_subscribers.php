@@ -7,7 +7,7 @@
 
             <div class="panel-body">
                 <div class="adv-table table-responsive">
-                    <table  class="display table table-bordered table-striped icon-color-blk" id="dynamic-table">
+                    <table  class="display table table-bordered table-striped icon-color-blk" id="subscriber-table">
                         <thead>
                             <tr>
                                 <td>
@@ -17,7 +17,7 @@
                                     Subscriber Email-Id
                                 </td>    
                                 <td>
-                                    Subscribed At
+                                    Subscribed On
                                 </td>
                             </tr>
                         </thead>
@@ -41,11 +41,7 @@
                                 <?php }
                                 ?>
                             </tbody>
-                            <?php
-                        } else {
-                            echo "No Record Found.";
-                        }
-                        ?>
+                        <?php } ?>
                     </table>
                 </div>
             </div>

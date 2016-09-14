@@ -10,6 +10,18 @@
         </div>
     <?php } ?>
 
+    <?php if ($this->session->flashdata('success_message') !== NULL) { ?>
+        <div class="alert alert-success" id="alert_success">
+            <?php echo '<h6>' . $this->session->flashdata('success_message') . '</h6>'; ?>
+        </div>
+    <?php } ?>
+
+    <?php if ($this->session->flashdata('error_message') !== NULL) { ?>
+        <div class="alert alert-danger" id="alert-error">
+            <?php echo '<h6>' . $this->session->flashdata('error_message') . '</h6>'; ?>
+        </div>
+    <?php } ?>
+
     <div class="container">
         <form id="login_form" role="form" class="form-signin" method="post">
 

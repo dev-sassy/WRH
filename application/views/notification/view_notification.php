@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <section class="panel">
             <header class="panel-heading pd-btm-25px">
-                All Notification
+                All Notifications
                 <div class="btn-group pull-right">
                     <a href="<?php echo base_url() . 'notifications/addNotification'; ?>" id="editable-sample_new" class="btn btn-primary">
                         Add New <i class="fa fa-plus"></i>
@@ -12,7 +12,7 @@
 
             <div class="panel-body">
                 <div class="adv-table table-responsive">
-                    <table  class="display table table-bordered table-striped icon-color-blk" id="dynamic-table">
+                    <table  class="display table table-bordered table-striped icon-color-blk" id="notification-table">
                         <thead>
                             <tr>
                                 <td>
@@ -57,16 +57,12 @@
                                 <?php }
                                 ?>
                             </tbody>
-                            <?php
-                        } else {
-                            echo "No Record Found";
-                        }
-                        ?>
-                    </table>
+                            <?php } ?>
+                        </table>
+                    </div>
                 </div>
-            </div>
 
-            <?php $this->load->view('confirmation_modal'); ?>
+                <?php $this->load->view('confirmation_modal'); ?>
         </section>
     </div>
 </div>

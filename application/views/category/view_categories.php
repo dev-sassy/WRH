@@ -12,18 +12,18 @@
 
             <div class="panel-body">
                 <div class="adv-table table-responsive">
-                    <table  class="display table table-bordered table-striped icon-color-blk" id="dynamic-table">
+                    <table  class="display table table-bordered table-striped icon-color-blk" id="category-table">
                         <thead>
                             <tr>
                                 <td>
                                     Sr No.
                                 </td>
                                 <td>
-                                    Category Name
-                                </td>    
-                                <td>
                                     Category Image
                                 </td>
+                                <td>
+                                    Category Name
+                                </td>                                    
                                 <td></td>
                             </tr>
                         </thead>
@@ -38,9 +38,6 @@
                                     <tr>
                                         <td width="3%"><?php echo $i++; ?></td>
                                         <td>
-                                            <?php echo $item['categoryName']; ?>
-                                        </td>                                        
-                                        <td>
                                             <?php
                                             if (empty($item['categoryImage'])) {
                                                 echo '<img src="' . base_url() . 'assets/images/no-image.png' . '" height="auto" width="100" alt="Image not available." />';
@@ -49,6 +46,9 @@
                                             }
                                             ?>
                                         </td>
+                                        <td>
+                                            <?php echo $item['categoryName']; ?>
+                                        </td>                                        
                                         <td>
                                             <a href="<?php echo base_url() . 'category/editCategory/' . $item['categoryId']; ?>">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
@@ -63,15 +63,11 @@
                                 <?php }
                                 ?>
                             </tbody>
-                            <?php
-                        } else {
-                            echo "No Record Found";
-                        }
-                        ?>
+                        <?php } ?>
                     </table>
                 </div>
             </div>
-            
+
             <?php $this->load->view('confirmation_modal'); ?>
         </section>
     </div>

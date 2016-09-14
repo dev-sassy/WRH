@@ -100,14 +100,14 @@
                         'id' => 'startDate',
                         'value' => '',
                         'class' => 'form-control',
-                        'placeholder' => 'Start Date',
+                        'placeholder' => 'Start Date-time',
                         'required' => 'true',
                         'readonly' => 'true'
                     );
                     ?>                    
                     <div class="form-group clearfix">                        
                         <div class="col-md-12">
-                            <?php echo form_label('Start Date :', 'startDate'); ?>
+                            <?php echo form_label('Start Date-time :', 'startDate'); ?>
                             <?php echo form_input($startDate_field); ?>                                
                         </div>
                     </div>
@@ -118,13 +118,13 @@
                         'id' => 'expiryDate',
                         'value' => '',
                         'class' => 'form-control',
-                        'placeholder' => 'Expiry Date',
+                        'placeholder' => 'Expiry Date-time',
                         'readonly' => 'true'
                     );
                     ?>
                     <div class="form-group clearfix">
                         <div class="col-md-12">
-                            <?php echo form_label('Expiry Date :', 'expiryDate'); ?>
+                            <?php echo form_label('Expiry Date-time :', 'expiryDate'); ?>
                             <?php echo form_input($expiryDate_field); ?>
                         </div>
                     </div>
@@ -152,6 +152,7 @@
                         'value' => '',
                         'type' => 'number',
                         'min' => '1',
+                        'step' => '1',
                         'class' => 'form-control',
                         'placeholder' => 'Coupon Limit'
                     );

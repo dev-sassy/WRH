@@ -9,13 +9,13 @@
                     <form id="add_note_form" role="form" class="cmxform form-horizontal adminex-form" method="post">
                         <div class="form-group clearfix">
                             <div class="col-md-12">
-                                <label for="title">Title</label>
+                                <label for="title">Title :</label>
                                 <input type="text" class="form-control" name="title" id="title" placeholder="Title" />
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="col-md-12">
-                                <label for="exampleInputEmail1">Description</label>
+                                <label for="exampleInputEmail1">Description :</label>
                                 <textarea class="form-control" name="description" id="description" rows="5" cols="50" placeholder="Description"></textarea>
                             </div>
                         </div>

@@ -12,21 +12,21 @@
 
             <div class="panel-body">
                 <div class="adv-table table-responsive">
-                    <table  class="display table table-bordered table-striped icon-color-blk" id="dynamic-table">
+                    <table  class="display table table-bordered table-striped icon-color-blk" id="vendor-table">
                         <thead>
                             <tr>
                                 <td>
                                     Sr No.
                                 </td>                                
                                 <td>
+                                    Vendor Image
+                                </td>
+                                <td>
                                     Vendor Name
                                 </td>
                                 <td>
                                     Created on
-                                </td>                                
-                                <td>
-                                    Vendor Image
-                                </td>
+                                </td>                                                                
                                 <td></td>
                             </tr>
                         </thead>
@@ -41,12 +41,6 @@
                                     <tr>
                                         <td width="3"><?php echo $i++; ?></td>                                        
                                         <td>
-                                            <?php echo $company['vendorName']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $company['createdOn']; ?>
-                                        </td>
-                                        <td>
                                             <?php
                                             if (empty($company['vendorImage'])) {
                                                 echo '<img src="' . base_url() . 'assets/images/no-image.png' . '" height="auto" width="100" alt="Image not available." />';
@@ -55,6 +49,12 @@
                                             }
                                             ?>                                            
                                         </td>
+                                        <td>
+                                            <?php echo $company['vendorName']; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $company['createdOn']; ?>
+                                        </td>                                        
                                         <td>
                                             <a href="<?php echo base_url() . 'vendor/editVendor/' . $company['vendorId']; ?>">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
@@ -69,11 +69,7 @@
                                 <?php }
                                 ?>
                             </tbody>
-                            <?php
-                        } else {
-                            echo "No Record Found.";
-                        }
-                        ?>
+                        <?php } ?>
                     </table>
                 </div>
             </div>            

@@ -1,5 +1,17 @@
 $(document).ready(function () {
-    
+
+    $('#coupon-table').dataTable({
+        "aaSorting": [[0, "asc"]],
+        "aoColumnDefs": [{
+                'bSortable': false,
+                'aTargets': [7]
+            }, {
+                'bSortable': false,
+                'aTargets': [1]
+            },
+        ]
+    });
+
     $('#startDate').datetimepicker({
         autoclose: true,
         todayBtn: true,

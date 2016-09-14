@@ -22,7 +22,9 @@ class Inquiry extends CI_Controller {
             $data['title'] = "Inquiry";
             $data['inq_detail'] = $this->inquiry_model->fetchInquiry();
             $data['inq_count'] = count($data['inq_detail']);
-            $data['content'] = $this->load->view("inquiry", $data, true);
+            $data['js'] = array("customs/inquiry");
+            
+            $data['content'] = $this->load->view("inquiry/view_inquiries", $data, true);
             $this->load->view("default_layout", $data);
         } else {
             redirect(base_url() . 'login', 'refresh');

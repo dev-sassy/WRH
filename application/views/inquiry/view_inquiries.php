@@ -2,27 +2,27 @@
     <div class="col-md-12">
         <section class="panel">
             <header class="panel-heading pd-btm-25px">
-                All Inquiry
+                All Inquiries
             </header>
 
             <div class="panel-body">
                 <div class="adv-table table-responsive">
-                    <table  class="display table table-bordered table-striped icon-color-blk" id="dynamic-table">
+                    <table  class="display table table-bordered table-striped icon-color-blk" id="inquiry-table">
                         <thead>
                             <tr>
                                 <td>
                                     Sr No.
                                 </td>
                                 <td>
-                                   Name
+                                    Name
                                 </td>
-								<td>
+                                <td>
                                     Email
                                 </td>
                                 <td>
-                                   Subject
+                                    Subject
                                 </td>
-								<td>
+                                <td>
                                     Message
                                 </td>
                             </tr>
@@ -32,7 +32,7 @@
                             ?>
                             <tbody>
                                 <?php
-                                $i = 1; 
+                                $i = 1;
                                 foreach ($inq_detail as $inq_detail_list) {
                                     ?>
                                     <tr>
@@ -45,21 +45,17 @@
                                         <td>
                                             <?php echo $inq_detail_list->inquiryEmail; ?>
                                         </td>
-										<td>
+                                        <td>
                                             <?php echo $inq_detail_list->inquirySubject; ?>
                                         </td>
-										<td>
+                                        <td>
                                             <?php echo $inq_detail_list->inquiryMessage; ?>
                                         </td>
                                     </tr>
                                 <?php }
                                 ?>
                             </tbody>
-                            <?php
-                        } else {
-                            echo "No Record Found";
-                        }
-                        ?>
+                        <?php } ?>
                     </table>
                 </div>
             </div>

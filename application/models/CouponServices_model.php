@@ -115,9 +115,17 @@ class CouponServices_model extends CI_Model {
         $couponLimit = trim($this->input->post('couponLimit'));
 
         $query = $this->db->get_where('wrh_coupon', array("couponName" => $couponName));
-        $coupon_details = $query->row_array();
+        $coupon_name_details = $query->row_array();
 
-        if (!$coupon_details['couponId'] || ($couponId === $coupon_details['couponId']) && !strcmp($couponName, $coupon_details['couponName'])) {
+        $query = $this->db->get_where('wrh_coupon', array("couponCode" => $couponCode));
+        $coupon_code_details = $query->row_array();
+        
+        if (!$coupon_name_details['couponId'] || ($couponId === $coupon_name_details['couponId']) && !strcmp($couponName, $coupon_name_details['couponName'])) {
+            if (!strcmp($couponCode, $coupon_code_details['couponCode'])) {
+                $this->session->set_flashdata('error_message', 'Coupon code already exist.');
+                return FALSE;
+            }
+
             if (!$couponImage || $couponImage['file_size'] === 0 || !$couponImage['is_image']) {
                 $couponImage["path"] = "";
                 $couponImage['file_type'] = "image/png";
@@ -258,12 +266,12 @@ class CouponServices_model extends CI_Model {
             $this->db->select($select);
             $this->db->from("wrh_coupon AS coupon");
             $this->db->join("wrh_redeem_coupon AS rc", "rc.couponId = coupon.couponId ", 'left');
-            
+
             if (!(!$categoryId && !$vendorId)) {
                 $this->db->join($joinParam1, $joinParam2, 'inner');
                 $this->db->where($where);
             }
-            
+
             if ($categoryId && $vendorId) {
                 $this->db->join($join2Param1, $join2Param2, 'inner');
             }
@@ -275,7 +283,7 @@ class CouponServices_model extends CI_Model {
             $this->db->where('coupon.startDate <=', $dt);
             $this->db->where('coupon.expiryDate >', $dt);
             $this->db->where('rc.uniqueId IS NULL OR rc.uniqueId !=', $field_details['uniqueId']);
-            
+
             if ($categoryId) {
                 $this->db->limit($limit, $index);
             }

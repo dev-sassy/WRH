@@ -1,44 +1,38 @@
 $(document).ready(function () {
-    
+
     $("#change_pass").validate({
         rules: {
             old_password: {
-                minlength: 6,
-                maxlength: 15,
-                required: true,
+                required: true
             },
             password: {
                 minlength: 6,
                 maxlength: 15,
-                required: true,
+                required: true
             },
             re_password: {
-                minlength: 6,
-                maxlength: 15,
                 required: true,
                 equalTo: "#password"
-            },
+            }
         },
         messages: {
             old_password: {
                 required: "Please enter the old password.",
-                minlength: "Old password must be between 6 and 15 characters!",
-                maxlength: "Old password must be between 6 and 15 characters!"
             },
             password: {
                 required: "Please enter the password.",
-                minlength: "Password must be between 6 and 15 characters!",
-                maxlength: "Password must be between 6 and 15 characters!",
+                minlength: "Password must contain 6 to 15 characters.",
+                maxlength: "Password must contain 6 to 15 characters.",
             },
             re_password: {
                 equalTo: "Your password is not matched.",
                 required: "Please enter confirm password."
-            },
+            }
         }
     });
 
     $('#update').click(function () {
-        if ($('#mail_err').text() == "Invalid Password")
+        if ($('#mail_err').text() == "Invalid Password!")
         {
             $('#old_password').focus();
             return false;
@@ -53,7 +47,7 @@ $(document).ready(function () {
                 type: "POST",
                 data: {old_password: old_password},
                 success: function (data) {
-                    if (data == 'Invalid Password')
+                    if (data == 'Invalid Password!')
                     {
                         $(this).focus();
                         $('#mail_err').show();

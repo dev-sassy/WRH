@@ -12,7 +12,7 @@
 
             <div class="panel-body">
                 <div class="adv-table table-responsive">
-                    <table  class="display table table-bordered table-striped icon-color-blk" id="dynamic-table">
+                    <table  class="display table table-bordered table-striped icon-color-blk" id="coupon-table">
                         <thead>
                             <tr>
                                 <td>
@@ -28,10 +28,10 @@
                                     Coupon Code
                                 </td>
                                 <td>
-                                    Start Date
+                                    Start Date-time
                                 </td>
                                 <td>
-                                    Expiry Date
+                                    Expiry Date-time
                                 </td>
                                 <td>
                                     Coupon Limit
@@ -87,15 +87,11 @@
                                 <?php }
                                 ?>
                             </tbody>
-                            <?php
-                        } else {
-                            echo "No Record Found";
-                        }
-                        ?>
+                        <?php } ?>
                     </table>
                 </div>
             </div>
-            
+
             <?php $this->load->view('confirmation_modal'); ?>
         </section>
     </div>

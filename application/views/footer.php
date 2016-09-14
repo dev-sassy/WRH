@@ -8,12 +8,12 @@
 <script src="<?php echo base_url(); ?>assets/js/jquery.nicescroll.js"></script>
 
 <!--easy pie chart-->
-<script src="<?php echo base_url(); ?>assets/js/easypiechart/jquery.easypiechart.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/easypiechart/easypiechart-init.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/js/easypiechart/jquery.easypiechart.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/easypiechart/easypiechart-init.js"></script>-->
 
 <!--Sparkline Chart-->
-<script src="<?php echo base_url(); ?>assets/js/sparkline/jquery.sparkline.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/sparkline/sparkline-init.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/js/sparkline/jquery.sparkline.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/sparkline/sparkline-init.js"></script>-->
 
 <!--icheck -->
 <script src="<?php echo base_url(); ?>assets/js/iCheck/jquery.icheck.js"></script>
@@ -49,7 +49,7 @@
 <script type="text/javascript" language="javascript" src="<?php echo base_url(); ?>assets/js/advanced-datatable/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/data-tables/DT_bootstrap.js"></script>
 <!--dynamic table initialization -->
-<script src="<?php echo base_url(); ?>assets/js/dynamic_table_init.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/js/dynamic_table_init.js"></script>-->
 <!--dynamic table-->
 
 <!-- validation -->
@@ -67,25 +67,15 @@
 <!--pickers plugins-->
 
 <!-- ckeditor -->
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/ckeditor/ckeditor.js"></script>
+<!--<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/ckeditor/ckeditor.js"></script>-->
 <!-- ckeditor -->
 
 
 
 <!--dropzone-->
-<script src="<?php echo base_url(); ?>assets/js/dropzone/dropzone.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/js/dropzone/dropzone.js"></script>-->
 
 
 <!--file upload-->
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootstrap-fileupload.min.js"></script>
 <!--file upload-->
-
-
-
-
-
-
-
-
-
-

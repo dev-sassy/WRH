@@ -18,20 +18,16 @@
 
             <h5 class="left-nav-title">Account Information</h5>
             <ul class="nav nav-pills nav-stacked custom-nav">
-<!--                <li><a href="#"><i class="fa fa-user"></i> <span>Profile</span></a></li>
-                <li><a href="#"><i class="fa fa-cog"></i> <span>Settings</span></a></li>-->
                 <li><a href="<?php echo base_url() . 'admin/logout' ?>"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
             </ul>
         </div>
 
         <!--sidebar nav start-->
         <ul class="nav nav-pills nav-stacked custom-nav">
-            <!--<li><a href="<?php echo base_url() . $this->session->userdata('route_path') . '/success_login'; ?>"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>-->
-
             <li class="menu-list"><a href=""><i class="fa fa-users"></i> <span>Vendors</span></a>
                 <ul class="sub-menu-list">
                     <li><a href="<?php echo base_url() . 'vendor/addVendor'; ?>"> Add Vendor</a></li> 
-                    <li><a href="<?php echo base_url() . 'vendor/viewVendors' ?>"> View Vendors</a></li>
+                    <li><a href="<?php echo base_url() . 'vendor/viewVendors' ?>"> View All Vendors</a></li>
                 </ul>
             </li>
 
@@ -51,14 +47,14 @@
 
             <li class="menu-list"><a href=""><i class="fa fa-info"></i> <span>Notifications</span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="<?php echo base_url() . 'notifications/addNotification'; ?>"> Add Notifications</a></li> 
+                    <li><a href="<?php echo base_url() . 'notifications/addNotification'; ?>"> Add Notification</a></li> 
                     <li><a href="<?php echo base_url() . 'notifications'; ?>"> View All Notifications</a></li>                     
                 </ul>
             </li>
             
-            <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>Inquiry</span></a>
+            <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>Inquiries</span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="<?php echo base_url() . 'inquiry'; ?>"> View All inquiry</a></li> 
+                    <li><a href="<?php echo base_url() . 'inquiry'; ?>"> View All inquiries</a></li> 
                 </ul>
             </li>
 
