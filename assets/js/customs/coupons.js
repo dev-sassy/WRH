@@ -75,4 +75,16 @@ $(document).ready(function () {
         }
     });
 
+    $("#add_coupon_form #couponLimit, #edit_coupon_form #couponLimit").keydown(function (e) {
+        // backspace, delete, Home - 35, End - 36, arrows - 37-40
+        if (e.keyCode == 46 || e.keyCode == 8 || (e.keyCode >= 35 && e.keyCode <= 40)) {
+            return;
+        } else {
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        }
+    });
+
 });

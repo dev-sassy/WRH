@@ -37,9 +37,25 @@ $(document).ready(function () {
             $('#old_password').focus();
             return false;
         }
+
+        var old_password = $("#old_password").val().trim();
+        if (old_password !== '') {
+            return check_for_valid_password();
+        }
+
     });
 
-    $('#old_password').blur(function () {
+    $('#old_password').keyup(function () {
+        var old_password = $("#old_password").val();
+        if (old_password === '') {
+            $('#mail_err').removeClass('help-block');
+            $('#mail_err').parent().removeClass('has-error');
+            $('#mail_err').html('');
+            $('#mail_err').hide();
+        }
+    });
+
+    function check_for_valid_password() {
         var old_password = $("#old_password").val();
         if (old_password) {
             $.ajax({
@@ -61,11 +77,16 @@ $(document).ready(function () {
                         $('#mail_err').parent().removeClass('has-error');
                         $('#mail_err').html('');
                         $('#mail_err').hide();
+                        return true;
                     }
                 }
             });
         }
         return false;
+    }
+
+    $('#old_password').blur(function () {
+        return check_for_valid_password();
     });
 
 });
